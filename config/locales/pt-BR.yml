@@ -1,0 +1,162 @@
+pt-BR:
+  activerecord:
+    models:
+      admin:
+        one: Administrador
+        other: Administradores
+      user:
+        one: Usuário
+        other: Usuários
+      address:
+        one: Endereço
+      phone_number:
+        one: Telefone
+        other: Telefones
+      school:
+        one: Escola
+        other: Escolas
+      enrollment:
+        one: Matrícula
+        other: Matrículas
+        new: Nova %{resource}
+        updated: "%{resource} Atualizada com sucesso"
+      program:
+        one: Programa
+        other: Programas
+      project: 
+        one: Projeto
+        other: Projetos
+      educ:
+        one: Educador
+        other: Educadores
+      classroom:
+        one: Turma
+        other: Turmas
+      lesson:
+        one: Aula
+        other: Aulas
+      analytics:
+        one: Relatório
+        other: Relatórios
+    attributes:
+      boolean:
+        "true": Sim
+        "false": Não
+      add_field: Adicionar %{resource}
+      user:
+        confirmation_sent_at: Confirmação enviada em
+        confirmation_token: Token de confirmação
+        confirmed_at: Confirmado em
+        created_at: Criado em
+        current_password: Senha atual
+        current_sign_in_at: Atualmente logado em
+        current_sign_in_ip: IP do acesso atual
+        first_name: Nome
+        last_name: Sobrenome
+        full_name: Nome completo
+        email: E-mail
+        birthdate: Data Nascimento
+        genre: Gênero
+        male: Masculino
+        female: Feminino
+        father_name: Nome do Pai
+        mother_name: Nome da Mãe
+        phone_number: Telefone
+        address: Endereço
+        project: Projetos
+        school: Escola
+        ceic: CEIC
+        active: Ativo
+        activated: "%{status}"
+        encrypted_password: Senha criptografada
+        failed_attempts: Tentativas sem sucesso
+        last_sign_in_at: Último acesso em
+        last_sign_in_ip: Último IP de acesso
+        locked_at: Bloqueado em
+        password: Senha
+        password_confirmation: Confirme sua senha
+        remember_created_at: Lembrar criado em
+        remember_me: Lembre-se de mim
+        reset_password_sent_at: Resetar senha enviado em
+        reset_password_token: Resetar token de senha
+        sign_in_count: Contagem de acessos
+        unconfirmed_email: E-mail não confirmado
+        unlock_token: Token de desbloqueio
+        updated_at: Atualizado em
+      admin:
+        confirmation_sent_at: Confirmação enviada em
+        confirmation_token: Token de confirmação
+        confirmed_at: Confirmado em
+        created_at: Criado em
+        current_password: Senha atual
+        current_sign_in_at: Atualmente logado em
+        current_sign_in_ip: IP do acesso atual
+        email: E-mail
+        name: Nome
+        role: Permissões
+        encrypted_password: Senha criptografada
+        failed_attempts: Tentativas sem sucesso
+        last_sign_in_at: Último acesso em
+        last_sign_in_ip: Último IP de acesso
+        locked_at: Bloqueado em
+        password: Senha
+        password_confirmation: Confirme sua senha
+        remember_created_at: Lembrar criado em
+        remember_me: Lembre-se de mim
+        reset_password_sent_at: Resetar senha enviado em
+        reset_password_token: Resetar token de senha
+        sign_in_count: Contagem de acessos
+        unconfirmed_email: E-mail não confirmado
+        unlock_token: Token de desbloqueio
+        updated_at: Atualizado em
+      enrollment:
+        school: Escola
+        id: Matrícula Nº
+        user_id: Usuário
+        full_name: Nome completo
+        created_at: Criado em
+        updated_at: Atualizado em
+        canceled: Cancelada
+        cancel: "%{status}"
+        project_id: Projeto
+        ceic_id: CEIC
+        classroom:
+        schedule: Horário
+      address:
+        full_address: Endereço
+        street: Rua/Av.
+        number: número
+        neighborhood: Bairro
+        city: Cidade
+        state: Estado
+        zipcode: CEP
+      phone_number:
+        number: Telefone
+        description: Descrição
+      programa:
+        name: Nome
+        slug: Sigla
+        created_at: Criado em 
+      project:
+        project_id: Projeto
+        first_name: Nome
+        ceic_id: CEIC
+        name: Nome
+        slug: Sigla
+        schedule: Horário
+        status: Status
+        created_at: Criado em 
+      educ:
+        name: Nome
+        email: E-mail
+        password: Senha
+        password_confirmation: Confirmação da Senha
+        project_id: Projeto
+        ceic_id: CEIC
+      school:
+        name: Nome
+      classroom:
+        id: Turma Nº
+        schedule: Horário
+        active: Ativa
+        project_id: Projeto
