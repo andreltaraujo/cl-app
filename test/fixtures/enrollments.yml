@@ -1,0 +1,15 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  canceled: false
+  user: one
+  project: one
+  ceic: one
+  classroom: one
+
+two:
+  canceled: false
+  user: two
+  project: two
+  ceic: two
+  classroom: two
