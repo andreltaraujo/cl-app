@@ -1,0 +1,2 @@
+class Ceic < ApplicationRecord
+end

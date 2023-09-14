@@ -1,0 +1,13 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  schedule: 2023-09-13 22:18:27
+  active: false
+  project: one
+  ceic: one
+
+two:
+  schedule: 2023-09-13 22:18:27
+  active: false
+  project: two
+  ceic: two

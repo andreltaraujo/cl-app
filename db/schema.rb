@@ -10,9 +10,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_09_13_215206) do
+ActiveRecord::Schema[7.0].define(version: 2023_09_14_012514) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "addresses", force: :cascade do |t|
+    t.string "street"
+    t.string "number"
+    t.string "neighborhood"
+    t.string "city"
+    t.string "state"
+    t.string "zipcode"
+    t.bigint "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_addresses_on_user_id"
+  end
 
   create_table "admins", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -24,6 +37,34 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_13_215206) do
     t.datetime "updated_at", null: false
     t.index ["email"], name: "index_admins_on_email", unique: true
     t.index ["reset_password_token"], name: "index_admins_on_reset_password_token", unique: true
+  end
+
+  create_table "attendances", force: :cascade do |t|
+    t.boolean "attended"
+    t.bigint "user_id", null: false
+    t.bigint "lesson_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["lesson_id"], name: "index_attendances_on_lesson_id"
+    t.index ["user_id"], name: "index_attendances_on_user_id"
+  end
+
+  create_table "ceics", force: :cascade do |t|
+    t.string "name"
+    t.string "slug"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "classrooms", force: :cascade do |t|
+    t.time "schedule"
+    t.boolean "active"
+    t.bigint "project_id", null: false
+    t.bigint "ceic_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["ceic_id"], name: "index_classrooms_on_ceic_id"
+    t.index ["project_id"], name: "index_classrooms_on_project_id"
   end
 
   create_table "educs", force: :cascade do |t|
@@ -38,6 +79,60 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_13_215206) do
     t.index ["reset_password_token"], name: "index_educs_on_reset_password_token", unique: true
   end
 
+  create_table "enrollments", force: :cascade do |t|
+    t.boolean "canceled"
+    t.bigint "user_id", null: false
+    t.bigint "project_id", null: false
+    t.bigint "ceic_id", null: false
+    t.bigint "classroom_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["ceic_id"], name: "index_enrollments_on_ceic_id"
+    t.index ["classroom_id"], name: "index_enrollments_on_classroom_id"
+    t.index ["project_id"], name: "index_enrollments_on_project_id"
+    t.index ["user_id"], name: "index_enrollments_on_user_id"
+  end
+
+  create_table "lessons", force: :cascade do |t|
+    t.datetime "date"
+    t.string "status"
+    t.bigint "classroom_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["classroom_id"], name: "index_lessons_on_classroom_id"
+  end
+
+  create_table "phone_numbers", force: :cascade do |t|
+    t.string "number"
+    t.string "description"
+    t.bigint "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_phone_numbers_on_user_id"
+  end
+
+  create_table "programs", force: :cascade do |t|
+    t.string "name"
+    t.string "slug"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "projects", force: :cascade do |t|
+    t.string "name"
+    t.string "slug"
+    t.bigint "program_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["program_id"], name: "index_projects_on_program_id"
+  end
+
+  create_table "schools", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -50,4 +145,16 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_13_215206) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "addresses", "users"
+  add_foreign_key "attendances", "lessons"
+  add_foreign_key "attendances", "users"
+  add_foreign_key "classrooms", "ceics"
+  add_foreign_key "classrooms", "projects"
+  add_foreign_key "enrollments", "ceics"
+  add_foreign_key "enrollments", "classrooms"
+  add_foreign_key "enrollments", "projects"
+  add_foreign_key "enrollments", "users"
+  add_foreign_key "lessons", "classrooms"
+  add_foreign_key "phone_numbers", "users"
+  add_foreign_key "projects", "programs"
 end
