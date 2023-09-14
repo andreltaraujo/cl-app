@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_09_14_012514) do
+ActiveRecord::Schema[7.0].define(version: 2023_09_14_075552) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -25,6 +25,14 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_14_012514) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_addresses_on_user_id"
+  end
+
+  create_table "admin_profiles", force: :cascade do |t|
+    t.string "name"
+    t.string "role"
+    t.boolean "active"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "admins", force: :cascade do |t|
@@ -65,6 +73,16 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_14_012514) do
     t.datetime "updated_at", null: false
     t.index ["ceic_id"], name: "index_classrooms_on_ceic_id"
     t.index ["project_id"], name: "index_classrooms_on_project_id"
+  end
+
+  create_table "educ_profiles", force: :cascade do |t|
+    t.string "name"
+    t.bigint "project_id", null: false
+    t.bigint "ceic_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["ceic_id"], name: "index_educ_profiles_on_ceic_id"
+    t.index ["project_id"], name: "index_educ_profiles_on_project_id"
   end
 
   create_table "educs", force: :cascade do |t|
@@ -133,6 +151,20 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_14_012514) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "user_profiles", force: :cascade do |t|
+    t.string "first_name"
+    t.string "last_name"
+    t.date "birthdate"
+    t.string "genre"
+    t.string "father_name"
+    t.string "mother_name"
+    t.boolean "active"
+    t.bigint "school_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["school_id"], name: "index_user_profiles_on_school_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -150,6 +182,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_14_012514) do
   add_foreign_key "attendances", "users"
   add_foreign_key "classrooms", "ceics"
   add_foreign_key "classrooms", "projects"
+  add_foreign_key "educ_profiles", "ceics"
+  add_foreign_key "educ_profiles", "projects"
   add_foreign_key "enrollments", "ceics"
   add_foreign_key "enrollments", "classrooms"
   add_foreign_key "enrollments", "projects"
@@ -157,4 +191,5 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_14_012514) do
   add_foreign_key "lessons", "classrooms"
   add_foreign_key "phone_numbers", "users"
   add_foreign_key "projects", "programs"
+  add_foreign_key "user_profiles", "schools"
 end
