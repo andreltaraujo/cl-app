@@ -9,6 +9,7 @@ one:
   mother_name: MyString
   active: false
   school: one
+  user: one
 
 two:
   first_name: MyString
@@ -19,3 +20,4 @@ two:
   mother_name: MyString
   active: false
   school: two
+  user: two

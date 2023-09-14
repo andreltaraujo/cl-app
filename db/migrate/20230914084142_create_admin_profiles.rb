@@ -4,6 +4,7 @@ class CreateAdminProfiles < ActiveRecord::Migration[7.0]
       t.string :name
       t.string :role
       t.boolean :active
+      t.belongs_to :admin, null: false, foreign_key: true
 
       t.timestamps
     end

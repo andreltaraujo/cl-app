@@ -4,8 +4,10 @@ one:
   name: MyString
   role: MyString
   active: false
+  admin: one
 
 two:
   name: MyString
   role: MyString
   active: false
+  admin: two
