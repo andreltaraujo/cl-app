@@ -1,26 +1,22 @@
-<h2>Log in</h2>
+<div class="flex flex-col justify-center m-8">
+  <div class="sm:mx-auto sm:w-full sm:max-w-md">
+    <div class="text-2xl text-center text-gray-900 font-bold"><%= "#{t("devise.sessions.new.sign_in")} como #{resource.model_name.human}" %></div>
+    <%= form_for(resource, as: resource_name, url: session_path(resource_name), html: { class:"bg-gray-50 shadow-lg rounded-md p-8 my-4" }) do |f| %>
+        <%= f.label :email, class:"p-4 text-sm font-medium text-gray-900" %><br />
+        <%= f.email_field :email, autofocus: true, autocomplete: "email", class:"mb-4 w-full rounded-md px-4 py-1.5 text-gray-900 shadow-md ring-2 ring-gray-300 sm:text-sm" %>
 
-<%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
-  </div>
+        <%= f.label :password, class:"p-4 text-sm font-medium text-gray-900" %><br />
+        <%= f.password_field :password, autocomplete: "current-password", class:"mb-4 w-full rounded-md px-4 py-1.5 text-gray-900 shadow-md ring-2 ring-gray-300 sm:text-sm" %>
 
-  <div class="field">
-    <%= f.label :password %><br />
-    <%= f.password_field :password, autocomplete: "current-password" %>
-  </div>
+      <% if devise_mapping.rememberable? %>
+          <%= f.check_box :remember_me %>
+          <%= f.label :remember_me, class:"text-sm font-medium text-gray-900" %>
+      <% end %>
 
-  <% if devise_mapping.rememberable? %>
-    <div class="field">
-      <%= f.check_box :remember_me %>
-      <%= f.label :remember_me %>
+        <%= f.submit t("devise.sessions.new.sign_in"), class:"mt-4 w-full justify-center rounded-md bg-sky-600 py-2 text-sm font-semibold text-white hover:bg-sky-700" %>
+    <% end %>
+    <div class="flex flex-wrap justify-center text-sm font-medium text-gray-900">
+      <%= render "shared/links" %>
     </div>
-  <% end %>
-
-  <div class="actions">
-    <%= f.submit "Log in" %>
   </div>
-<% end %>
-
-<%= render "educs/shared/links" %>
+</div>

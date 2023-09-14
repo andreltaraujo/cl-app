@@ -1,0 +1,11 @@
+<nav class="bg-white fixed w-full z-10 top-0 shadow">
+	<div class="container mx-auto flex flex-wrap">
+		<div class="flex flex-wrap">
+			<div class="px-2 py-4 relative text-sm">
+				<%= sign_in_or_out_link(@user, new_user_session_path, destroy_user_session_path) %>
+				<%= sign_in_or_out_link(@admin, new_admin_session_path, destroy_admin_session_path) %>
+				<%= sign_in_or_out_link(@educ, new_educ_session_path, destroy_educ_session_path) %>
+			</div>
+		</div>
+	</div>
+</nav>

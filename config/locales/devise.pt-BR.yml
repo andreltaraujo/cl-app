@@ -61,6 +61,7 @@ pt-BR:
         send_paranoid_instructions: Se o seu email existir em nosso banco de dados, você receberá um email com um link para recuperação da senha.
         updated: A sua senha foi alterada com sucesso. Você está autenticado.
         updated_not_active: Sua senha foi alterada com sucesso.
+        forgot_your_password: Esqueceu sua senha?
     registrations:
       signed_up: Bem vindo %{resource_name}! Matrícula realizada com sucesso.
       updated: "%{resource_name} Atualizado com sucesso!"
