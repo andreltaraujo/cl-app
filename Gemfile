@@ -50,6 +50,10 @@ gem "devise"
 
 # Centralization of locale data collection for Ruby on Rails
 gem 'rails-i18n', '~> 7.0.0'
+
+# Faker is a port of Perl's Data::Faker library. It's a library for generating fake data
+gem 'faker'
+
 # Use Sass to process CSS
 # gem "sassc-rails"
 
