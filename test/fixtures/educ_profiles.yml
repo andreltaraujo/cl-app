@@ -2,10 +2,12 @@
 
 one:
   name: MyString
+  educ: one
   project: one
   ceic: one
 
 two:
   name: MyString
+  educ: two
   project: two
   ceic: two

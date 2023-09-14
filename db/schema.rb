@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_09_14_075552) do
+ActiveRecord::Schema[7.0].define(version: 2023_09_14_084426) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -31,8 +31,10 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_14_075552) do
     t.string "name"
     t.string "role"
     t.boolean "active"
+    t.bigint "admin_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["admin_id"], name: "index_admin_profiles_on_admin_id"
   end
 
   create_table "admins", force: :cascade do |t|
@@ -79,9 +81,11 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_14_075552) do
     t.string "name"
     t.bigint "project_id", null: false
     t.bigint "ceic_id", null: false
+    t.bigint "educ_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["ceic_id"], name: "index_educ_profiles_on_ceic_id"
+    t.index ["educ_id"], name: "index_educ_profiles_on_educ_id"
     t.index ["project_id"], name: "index_educ_profiles_on_project_id"
   end
 
@@ -160,9 +164,11 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_14_075552) do
     t.string "mother_name"
     t.boolean "active"
     t.bigint "school_id", null: false
+    t.bigint "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["school_id"], name: "index_user_profiles_on_school_id"
+    t.index ["user_id"], name: "index_user_profiles_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -178,11 +184,13 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_14_075552) do
   end
 
   add_foreign_key "addresses", "users"
+  add_foreign_key "admin_profiles", "admins"
   add_foreign_key "attendances", "lessons"
   add_foreign_key "attendances", "users"
   add_foreign_key "classrooms", "ceics"
   add_foreign_key "classrooms", "projects"
   add_foreign_key "educ_profiles", "ceics"
+  add_foreign_key "educ_profiles", "educs"
   add_foreign_key "educ_profiles", "projects"
   add_foreign_key "enrollments", "ceics"
   add_foreign_key "enrollments", "classrooms"
@@ -192,4 +200,5 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_14_075552) do
   add_foreign_key "phone_numbers", "users"
   add_foreign_key "projects", "programs"
   add_foreign_key "user_profiles", "schools"
+  add_foreign_key "user_profiles", "users"
 end

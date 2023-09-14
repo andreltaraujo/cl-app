@@ -4,6 +4,7 @@ class CreateEducProfiles < ActiveRecord::Migration[7.0]
       t.string :name
       t.belongs_to :project, null: false, foreign_key: true
       t.belongs_to :ceic, null: false, foreign_key: true
+      t.belongs_to :educ, null: false, foreign_key: true
 
       t.timestamps
     end
