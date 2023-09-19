@@ -191,7 +191,7 @@ namespace :dev do
 			)
 			genre = genres.sample
 			first_name = genre == 'male' ? Faker::Name.male_first_name : Faker::Name.female_first_name
-			UserProfile.create(
+			profile = UserProfile.create(
 				first_name: first_name,
 				last_name: Faker::Name.last_name,
 				birthdate: Faker::Date.birthday(min_age: 8, max_age: 18),
@@ -208,7 +208,7 @@ namespace :dev do
 				cr = Classroom.find(classroom_id)
 				Enrollment.create!(
 					canceled: false,
-					user: user,
+					user_profile: profile,
 					project_id: cr.project_id,
 					ceic_id: cr.ceic_id,
 					classroom_id: cr.id
@@ -220,9 +220,9 @@ namespace :dev do
 	desc 'Adiciona endereços'
 	task add_address: :environment do
 
-		users = User.all
+		user_profiles = UserProfile.all
 
-		users.each do |user|
+		user_profiles.each do |profile|
 			Address.create!(
 				street: Faker::Address.street_name,
 				number: Faker::Address.building_number,
@@ -230,7 +230,7 @@ namespace :dev do
 				city: Faker::Address.city,
 				state: Faker::Address.state_abbr,
 				zipcode: Faker::Address.zip_code,
-				user: user
+				user_profile: profile
 			)
 		end
 	end
@@ -238,16 +238,16 @@ namespace :dev do
 	desc 'Adiciona telefones'
 	task add_phone_numbers: :environment do
 
-		users = User.all
+		user_profiles = UserProfile.all
 
-		users.each do |user|
+		user_profiles.each do |profile|
 			description = ['Próprio', 'Recado']
 			rand(1..3).times do |i|
 				index = rand(description.size)
 				PhoneNumber.create!(
 					number: Faker::PhoneNumber.cell_phone,
 					description: description[index],
-					user: user
+					user_profile: profile
 				)
 			end
 		end

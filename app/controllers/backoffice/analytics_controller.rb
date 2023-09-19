@@ -1,5 +1,5 @@
 class Backoffice::AnalyticsController < ApplicationController
-  layout 'admins'
+  layout 'analytics'
 	
 	def index
 		@users = UserProfile.all

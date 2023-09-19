@@ -1,0 +1,112 @@
+<div class="my-4 text-2xl text-center text-gray-900 font-bold">
+	<%= action_name == "show" ? "#{user.model_name.human}" : t('devise.registrations.new.sign_up', resource: user.model_name.human) %>
+</div>
+	<%= form_with model: [:backoffice, user], html: { class:"max-w-5xl mx-auto bg-gray-50 shadow-lg rounded-md p-8 my-4", id:'user-form' } do |f| %>
+		<%= render "shared/error_messages", resource: user %>
+		<div class="pb-4 text-lg font-medium text-gray-900">Dados do Aluno</div>
+		<div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+			<div>
+				<%= f.label :first_name, class:"p-2 block text-sm text-gray-900" %>
+				<%= f.text_field :first_name, class:"w-full rounded-md px-4 py-1.5 text-gray-900 shadow-md ring-2 ring-gray-300 text-sm" %>
+			</div>
+			<div>
+				<%= f.label :last_name, class:"p-2 block text-sm text-gray-900" %>
+				<%= f.text_field :last_name, class:"w-full rounded-md px-4 py-1.5 text-gray-900 shadow-md ring-2 ring-gray-300 text-sm" %>
+			</div>
+			<div>
+				<%= f.fields_for :user do |user_fields| %>
+					<%= user_fields.label :email, class:"p-2 block text-sm text-gray-900" %>
+					<%= user_fields.text_field :email, class:"w-full rounded-md px-4 py-1.5 text-gray-900 shadow-md ring-2 ring-gray-300 text-sm" %>
+					<%= user_fields.hidden_field :password, value: "123456" %><%#= f.hidden_field :password_confirmation, value: @pass %>
+				<% end %>
+			</div>
+			<div>
+				<%= f.label :birthdate, class:"p-2 block text-sm text-gray-900" %>
+				<%= f.date_field :birthdate, class:"w-full rounded-md px-4 py-1.5 text-gray-900 shadow-md ring-2 ring-gray-300 text-sm" %>
+			</div>
+			<div data-controller="nested-rondo">
+				<div data-nested-rondo-target="fieldContain">
+					<%= f.fields_for :phone_numbers do |phone_number| %>
+						<%= render 'phone_number_fields', f: phone_number %>
+					<% end %>
+					<% if action_name != 'show' %>
+						<div class="font-bold">
+							<%= link_to_add_association t('activerecord.attributes.add_field', resource: user.phone_numbers.model_name.human), f, :phone_numbers, class:"mt-4 p-4 text-sm text-gray-900" %>
+						</div>
+					<% end %>
+				</div>
+			</div>
+
+			<div class="p-8 text-sm text-gray-900 ">Genre
+				<%= f.radio_button :genre, 'male', class:"ml-4" %>
+				<%= f.label :genre_male, 'Male', class:"text-sm text-gray-900 sm:pt-2 pl-1 pr-4" %>
+			
+				<%= f.radio_button :genre, 'female' %>
+				<%= f.label :genre_female, 'Female', class:"mb-4 text-sm text-gray-900 sm:pt-2 pl-1" %>
+			</div>
+			<div>
+				<%= f.label :father_name, class:"p-2 block text-sm text-gray-900 text-sm text-gray-900" %>
+				<%= f.text_field :father_name, class:"w-full rounded-md px-4 py-1.5 text-gray-900 shadow-md ring-2 ring-gray-300 text-sm" %>
+			</div>
+			<div>
+				<%= f.label :mother_name, class:"p-2 block text-sm text-gray-900 text-sm text-gray-900" %>
+				<%= f.text_field :mother_name, class:"w-full rounded-md px-4 py-1.5 text-gray-900 shadow-md ring-2 ring-gray-300 text-sm" %>
+			</div>
+		</div>
+		
+		<div class="pt-4 text-lg text-gray-900" ><%#= user.address.model_name.human %></div>
+		<div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+			<%= f.fields_for :address do |address_fields| %>
+				<div>
+					<%= address_fields.label :street, class:"p-2 block text-sm text-gray-900" %>
+					<%= address_fields.text_field :street, class:"w-full rounded-md px-4 py-1.5 text-gray-900 shadow-md ring-2 ring-gray-300 text-sm" %>
+				</div>
+				<div>
+					<%= address_fields.label :number, class:"p-2 block text-sm text-gray-900" %>
+					<%= address_fields.text_field :number, class:"w-1/2 rounded-md px-4 py-1.5 text-gray-900 shadow-md ring-2 ring-gray-300 text-sm" %>
+				</div>
+				<div>
+					<%= address_fields.label :neighborhood, class:"p-2 block text-sm text-gray-900" %>
+					<%= address_fields.text_field :neighborhood, class:"rounded-md px-4 py-1.5 text-gray-900 shadow-md ring-2 ring-gray-300 text-sm" %>
+				</div>
+				<div>
+					<%= address_fields.label :city, class:"p-2 block text-sm text-gray-900" %>
+					<%= address_fields.text_field :city, class:"w-full rounded-md px-4 py-1.5 text-gray-900 shadow-md ring-2 ring-gray-300 text-sm" %>
+				</div>
+				<div>
+					<%= address_fields.label :state, class:"p-2 block text-sm text-gray-900" %>
+					<%= address_fields.text_field :state, class:"rounded-md px-4 py-1.5 text-gray-900 shadow-md ring-2 ring-gray-300 text-sm" %>
+				</div>
+				<div>
+					<%= address_fields.label :zipcode, class:"p-2 block text-sm text-gray-900" %>
+					<%= address_fields.text_field :zipcode, class:"w-1/2 rounded-md px-4 py-1.5 text-gray-900 shadow-md ring-2 ring-gray-300 text-sm" %>
+				</div>
+			<% end %>
+		</div>
+
+		<div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+			<div>
+				<%= f.label :school_id, class:"p-2 block text-sm text-gray-900" %>
+				<%= f.collection_select :school_id, School.all, :id, :name, {}, { class: "w-full rounded-md px-4 py-1.5 text-gray-900 shadow-md text-sm" } %>
+			</div>
+		</div>
+		<% if action_name == 'show' %>
+			<hr class="mt-8 border b-1">
+			<div class="text-lg font-medium text-gray-900">Matrículas
+				<%= link_to new_backoffice_enrollment_path, class:"ml-4 text-cyan-600 hover:text-gray-500" do %>
+					<i class="fas fa-plus-circle fa-xs mr-1"></i><span class="text-sm"><%= t('activerecord.models.enrollment.new', resource: user.enrollments.model_name.human) %></span>
+				<% end %>
+			</div>
+		<% end %>
+		<div data-controller="nested-rondo">
+			<div data-nested-rondo-target="fieldContain">
+				<%= f.fields_for :enrollments do |enrollment| %>
+					<%= dynamic_render_helper(action_name, enrollment) %>
+				<% end %>
+			</div>
+			<div class="mt-4">
+				<%= dynamic_link_helper(action_name, user, f) %>
+			</div>
+		</div>
+	<% end %>
+

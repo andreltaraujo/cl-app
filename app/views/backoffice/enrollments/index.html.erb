@@ -1,4 +1,80 @@
-<div>
-  <h1 class="font-bold text-4xl">Backoffice::Enrollments#index</h1>
-  <p>Find me in app/views/backoffice/enrollments/index.html.erb</p>
+<!--Container-->
+<div class="px-4 md:mt-8 mb-16 text-gray-800">
+	<div class="p-5">
+		<!--Table Card-->
+		<div class="bg-white border rounded shadow">
+			<div class="flex flex-wrap">
+				<div class="w-1/2 border-b p-3 text-lg font-bold uppercase text-gray-600"><%= @enrollments.model_name.human(count: 2) %></div>
+				<div class="w-1/2 border-b p-3 text-lg font-bold text-gray-600">
+					<div class="float-right">
+						<%= link_to new_backoffice_enrollment_path, class:"text-cyan-600 hover:text-gray-500 pr-4" do %>
+							<i class="fas fa-plus-circle fa-xs mr-1"></i><span class="invisible sm:visible text-sm"><%= t('activerecord.models.enrollment.new', resource: @enrollments.model_name.human) %></span>
+						<% end %>
+						<%= link_to :back, class:"text-cyan-600 hover:text-gray-500" do %>
+							<i class="fas fa-arrow-left fa-xs mr-1"></i><span class="invisible sm:visible text-sm"><%= t('devise.shared.links.back') %></span>
+						<% end %>
+					</div>
+				</div>
+			</div>
+			<div class="p-5">
+				<div class="overflow-x-auto">
+					<div class="table w-full text-gray-700">
+						<div class="table-header-group">
+							<div class="table-row font-bold text-left text-blue-900">
+								<% %w[id user_id created_at canceled].each do |attribute| %>
+									<% if @enrollments.first.attributes.key?(attribute) %>
+										<div class="table-cell px-4 whitespace-nowrap"><%= i18n_attributes(@enrollments, attribute) %></div>
+									<% end %>
+								<% end %>
+							</div>
+						</div>
+						<div class="table-row-group">
+							<% @enrollments.each do |enrollment| %>
+								<a href="<%= backoffice_enrollment_path(enrollment) %>" class="table-row hover:bg-gray-100">
+									<div class="table-cell px-4 py-2"><%= enrollment.id %></div>
+									<div class="table-cell px-4 py-2 whitespace-nowrap"><%= enrollment.user_profile.full_name%></div>
+									<div class="table-cell px-4 py-2"><%= l(enrollment.created_at.to_date) %></div>
+									<div class="table-cell px-4 py-2"><%= t('activerecord.attributes.enrollment.cancel', status: enrollment.canceled ? t('activerecord.attributes.boolean.true') : t('activerecord.attributes.boolean.false'))%></div>
+								</a>
+							<% end %>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!--/table Card-->
+	</div>
+	<!--/ Console Content-->
 </div>
+<%= paginate @enrollments %>
+<!--/container-->
+<footer class="bg-white border-t border-gray-400 shadow">
+	<div class="container max-w-md mx-auto flex py-8">
+		<div class="w-full mx-auto flex flex-wrap">
+			<div class="flex w-full md:w-1/2 ">
+				<div class="px-8">
+					<h3 class="font-bold text-gray-900">About</h3>
+					<p class="py-4 text-gray-600 text-sm">
+						Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas vel mi ut felis tempus commodo nec id erat. Suspendisse consectetur dapibus velit ut lacinia.
+					</p>
+				</div>
+			</div>
+			<div class="flex w-full md:w-1/2">
+				<div class="px-8">
+					<h3 class="font-bold text-gray-900">Social</h3>
+					<ul class="list-reset items-center text-sm pt-3">
+						<li>
+							<a class="inline-block text-gray-600 no-underline hover:text-gray-900 hover:underline py-1" href="#">Add social link</a>
+						</li>
+						<li>
+							<a class="inline-block text-gray-600 no-underline hover:text-gray-900 hover:underline py-1" href="#">Add social link</a>
+						</li>
+						<li>
+							<a class="inline-block text-gray-600 no-underline hover:text-gray-900 hover:underline py-1" href="#">Add social link</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+</footer>
