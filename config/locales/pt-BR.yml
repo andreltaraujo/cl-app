@@ -1,7 +1,7 @@
 pt-BR:
   activerecord:
     models:
-      admin:
+      admin_profile:
         one: Administrador
         other: Administradores
       user:
@@ -29,7 +29,7 @@ pt-BR:
       project: 
         one: Projeto
         other: Projetos
-      educ:
+      educ_profile:
         one: Educador
         other: Educadores
       classroom:
@@ -45,6 +45,9 @@ pt-BR:
       boolean:
         "true": Sim
         "false": Não
+      attended:
+        "true" : Presente
+        "false" : Faltou
       add_field: Adicionar %{resource}
       user:
         confirmation_sent_at: Confirmação enviada em
@@ -116,7 +119,7 @@ pt-BR:
       enrollment:
         school: Escola
         id: Matrícula Nº
-        user_id: Usuário
+        user_profile_id: Usuário
         full_name: Nome completo
         created_at: Criado em
         updated_at: Atualizado em
@@ -164,3 +167,7 @@ pt-BR:
         schedule: Horário
         active: Ativa
         project_id: Projeto
+      lesson:
+        date: Data
+      attendance:
+        attended: "%{status}"

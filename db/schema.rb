@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_09_15_234927) do
+ActiveRecord::Schema[7.0].define(version: 2023_09_19_235424) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -50,12 +50,11 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_15_234927) do
 
   create_table "attendances", force: :cascade do |t|
     t.boolean "attended"
-    t.bigint "user_id", null: false
     t.bigint "lesson_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "user_profile_id"
     t.index ["lesson_id"], name: "index_attendances_on_lesson_id"
-    t.index ["user_id"], name: "index_attendances_on_user_id"
   end
 
   create_table "ceics", force: :cascade do |t|
@@ -182,7 +181,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_15_234927) do
 
   add_foreign_key "admin_profiles", "admins"
   add_foreign_key "attendances", "lessons"
-  add_foreign_key "attendances", "users"
   add_foreign_key "classrooms", "ceics"
   add_foreign_key "classrooms", "projects"
   add_foreign_key "educ_profiles", "ceics"

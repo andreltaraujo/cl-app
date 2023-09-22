@@ -1,5 +1,4 @@
 class ApplicationController < ActionController::Base
-	layout 'admins'
 
 	protected
 
@@ -7,9 +6,9 @@ class ApplicationController < ActionController::Base
 		if resource_class == Admin
 			backoffice_analytics_path
 		elsif resource_class == User
-			backoffice_user_path(resource)
+			backoffice_user_profile_path(resource)
 		else resource_class == Educ
-			backoffice_educ_path(resource)
+			backoffice_educ_profile_path(resource)
 		end
   end
 end

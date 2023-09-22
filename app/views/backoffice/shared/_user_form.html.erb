@@ -89,6 +89,9 @@
 				<%= f.label :school_id, class:"p-2 block text-sm text-gray-900" %>
 				<%= f.collection_select :school_id, School.all, :id, :name, {}, { class: "w-full rounded-md px-4 py-1.5 text-gray-900 shadow-md text-sm" } %>
 			</div>
+			<div class="mt-12 text-center">
+				<%#= link_to t('devise.shared.links.edit'), edit_backoffice_user_profile_path(user), class:"bg-lime-500 hover:bg-lime-200 border border-1 rounded-lg py-2 px-4 text-sm text-white uppercase font-bold" %>
+			</div>
 		</div>
 		<% if action_name == 'show' %>
 			<hr class="mt-8 border b-1">
@@ -109,4 +112,13 @@
 			</div>
 		</div>
 	<% end %>
-
+<script>
+	document.addEventListener('DOMContentLoaded', function() {
+  const form = document.getElementById('user-form');
+  const inputFields = form.querySelectorAll('input');
+  
+  inputFields.forEach(function(inputField) {
+    inputField.readOnly = true;
+  });
+});
+</script>

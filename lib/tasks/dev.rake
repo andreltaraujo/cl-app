@@ -14,6 +14,7 @@ namespace :dev do
 			%x(rails dev:add_programs)
 			%x(rails dev:add_projects)
 			%x(rails dev:add_classrooms)
+			%x(rails dev:add_lessons)
 			%x(rails dev:add_others_users)
 			%x(rails dev:add_address)
 			%x(rails dev:add_phone_numbers)
@@ -173,6 +174,50 @@ namespace :dev do
 			proj = Project.find(projs)
 				ceics.all.each do |ceic|
 					Classroom.create!(schedule: time, active: true, project: proj, ceic: ceic)
+				end
+			end
+		end
+	end
+
+	desc 'Adiciona aula'
+	task add_lessons: :environment do
+		projects1 = [1,2,3,4,5]
+		projects2 = [6,7,8,9,10]
+		projects3 = [11,12,13,14]
+
+		month = 9
+		year = 2023
+		
+		weekdays1 = { tue_thu: [2, 4] }
+		weekdays2= { mon_wed: [1, 3] }
+		weekdays3 = { wed_fri: [3, 5] }
+
+		matching_dates = {}
+		weekdays1.each do |weekdays_name, weekdays1|
+			start_date = Date.new(year, month, 1)
+			end_date = Date.new(year, month, -1)
+
+			matching_dates_for_weekdays1 = []
+
+			current_date = start_date
+			while current_date <= end_date
+				if weekdays1.include?(current_date.wday)
+					matching_dates_for_weekdays1 << current_date
+				end
+					current_date += 1
+					matching_dates = matching_dates_for_weekdays1
+			end
+		end
+		matching_dates.each do |date|
+			projects = Project.find(projects1)
+			projects.each do |project|
+				classroom_ids = project.classrooms.ids
+				classrooms = Classroom.find(classroom_ids)
+				classrooms.each do |classroom|
+					Lesson.create!(
+						date: date,
+						classroom: classroom
+					)
 				end
 			end
 		end

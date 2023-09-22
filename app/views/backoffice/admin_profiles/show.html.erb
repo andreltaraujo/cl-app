@@ -1,0 +1,79 @@
+<!--Container-->
+<div class="px-4 md:px-0 md:mt-8 mb-16 text-gray-800 leading-normal">
+	<div class="p-5">
+		<!--Table Card-->
+		<div class="bg-white border rounded shadow">
+			<div class="flex flex-wrap">
+				<div class="w-1/2 border-b p-3 text-lg font-bold uppercase text-gray-600">
+					<%= @admin_profile.model_name.human %>
+				</div>
+				<div class="w-1/2 border-b p-3 text-lg font-bold text-gray-600">
+					<div class="text-sm float-right">
+						<%= link_to backoffice_admin_profiles_path, class:"text-cyan-600 hover:text-gray-500" do %>
+							<i class="fas fa-users mr-1"></i><span class="text-sm"><%= @admin_profile.model_name.human(count: 2) %></span>
+						<% end %>
+					</div>
+				</div>
+			</div>
+			<div class="p-5">
+				<div class="overflow-x-auto">
+					<table class="w-full p-5 text-gray-700">
+						<thead>
+							<tr>
+								<% %w[id name email created_at].each do |attribute| %>
+									<% if @admin_profile.attributes.key?(attribute) %>
+										<th class="text-blue-900 px-4 whitespace-nowrap"><%= @admin_profile.class.human_attribute_name(attribute) %>:</th>
+										<td class="whitespace-nowrap"><%= attribute == 'created_at'? l(@admin_profile[attribute].to_date) : @admin_profile[attribute] %><td>
+									<% end %>
+								<% end %>
+								<td ><%= link_to edit_backoffice_admin_profile_path(@admin_profile), class:"font-bold text-lime-500 hover:text-gray-500" do %>
+									<i class="fas fa-user-edit fa-fw mr-1"></i><span class="invisible sm:visible text-sm"><%= t('devise.shared.links.edit')%></span><% end %>
+								</td>
+								<td><%= button_to admin_registration_path, method: :delete, class:"font-bold text-red-500 hover:text-gray-500" do %>
+									<i class="fas fa-user-minus fa-fw mr-1 ml-3"></i><span class="invisible sm:visible text-sm"><%= t('devise.registrations.edit.cancel_my_account', resource_name: @admin_profile.name)%></span><% end %>
+								</td>
+							</tr>
+						</thead>
+						<tbody>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+		<!--/table Card-->
+	</div>
+	<!--/ Console Content-->
+</div>
+<!--/container-->
+<footer class="bg-white border-t border-gray-400 shadow">
+	<div class="container max-w-md mx-auto flex py-8">
+		<div class="w-full mx-auto flex flex-wrap">
+			<div class="flex w-full md:w-1/2 ">
+				<div class="px-8">
+					<h3 class="font-bold text-gray-900">About</h3>
+					<p class="py-4 text-gray-600 text-sm">
+						Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas vel mi ut felis tempus commodo nec id erat. Suspendisse consectetur dapibus velit ut lacinia.
+					</p>
+				</div>
+			</div>
+			<div class="flex w-full md:w-1/2">
+				<div class="px-8">
+					<h3 class="font-bold text-gray-900">Social</h3>
+					<ul class="list-reset items-center text-sm pt-3">
+						<li>
+							<a class="inline-block text-gray-600 no-underline hover:text-gray-900 hover:underline py-1" href="#">Add social link</a>
+						</li>
+						<li>
+							<a class="inline-block text-gray-600 no-underline hover:text-gray-900 hover:underline py-1" href="#">Add social link</a>
+						</li>
+						<li>
+							<a class="inline-block text-gray-600 no-underline hover:text-gray-900 hover:underline py-1" href="#">Add social link</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+</footer>
+
+

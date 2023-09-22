@@ -4,8 +4,14 @@
 
 import { application } from "./application"
 
+import AddAttendancesController from "./add_attendances_controller"
+application.register("add-attendances", AddAttendancesController)
+
 import DynamicClassroomsController from "./dynamic_classrooms_controller"
 application.register("dynamic-classrooms", DynamicClassroomsController)
+
+import LessonsMonthController from "./lessons_month_controller"
+application.register("lessons-month", LessonsMonthController)
 
 import NestedRondoController from "./nested_rondo_controller"
 application.register("nested-rondo", NestedRondoController)

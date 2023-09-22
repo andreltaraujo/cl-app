@@ -21,7 +21,7 @@
 					<div class="table w-full text-gray-700">
 						<div class="table-header-group">
 							<div class="table-row font-bold text-left text-blue-900">
-								<% %w[id user_id created_at canceled].each do |attribute| %>
+								<% %w[id user_profile_id created_at canceled].each do |attribute| %>
 									<% if @enrollments.first.attributes.key?(attribute) %>
 										<div class="table-cell px-4 whitespace-nowrap"><%= i18n_attributes(@enrollments, attribute) %></div>
 									<% end %>

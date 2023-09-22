@@ -4,6 +4,7 @@ class UserProfile < ApplicationRecord
 	has_one :address
 	has_many :phone_numbers
 	has_many :enrollments
+	has_many :attendances
 
 	accepts_nested_attributes_for :user, :address, :phone_numbers, :enrollments, reject_if: :all_blank
 

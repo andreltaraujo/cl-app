@@ -3,7 +3,7 @@
 		<div class="bg-white border rounded shadow">
 			<div class="flex flex-wrap">
 				<div class="w-1/2 border-b p-3 text-lg font-bold uppercase text-gray-600">
-					<%= @classrooms.first.model_name.human(count: 2) %>
+					<%= @lessons.first.model_name.human(count: 2) %>
 				</div>
 				<div class="w-1/2 border-b p-4 text-gray-600">
 					<div class="flex float-right">
@@ -14,15 +14,11 @@
 				</div>
 				<%= form_tag backoffice_classrooms_path, method: :get, remote: true, id: "classrooms-form", class:"sm:flex text-sm" do %>
 					<div class="pl-4 my-2">
-						<%= label_tag "project_id", 'Projeto', class:"p-2" %>
-						<%= select_tag "project_id", options_for_select(Project.all.map { |p| [p.name, p.id] }, selected: @classrooms.first.project_id), { class:"block text-sm rounded-lg" }%>
-					</div>
-					<div class="pl-4 my-2">
-						<%= label_tag "ceic_id", 'CEIC', class:"p-2" %>
-						<%= select_tag "ceic_id", options_for_select(Ceic.all.map { |c| [c.slug, c.id] }, selected: @classrooms.first.ceic_id),  { class:"block text-sm rounded-lg"} %>
+						<%= label_tag "classroom_id", 'Turma', class:"p-2" %>
+						<%= select_tag "classroom_id", options_for_select(Classroom.all.map { |room| [room.id, room.id] }, selected: @lessons.first.classroom_id), { class:"block text-sm rounded-lg" }%>
 					</div>
 					<div class="p-7">
-						<%= submit_tag "Filtrar Turmas", class:"block text-sm font-bold text-cyan-600 border border-cyan-600 rounded-lg shadow hover:text-gray-500 py-2 px-4" %>
+						<%= submit_tag "Filtrar Aulas", class:"block text-sm font-bold text-cyan-600 border border-cyan-600 rounded-lg shadow hover:text-gray-500 py-2 px-4" %>
 					</div >
 				<% end %>
 			</div>
@@ -31,21 +27,20 @@
 					<div class="table w-full text-gray-700">
 						<div class="table-header-group">
 							<div class="table-row font-bold text-blue-900">
-								<% %w[id project_id ceic_id schedule active].each do |attribute| %>
-									<% if @classrooms.first.attributes.key?(attribute) %>
-										<div class="table-cell px-4 whitespace-nowrap"><%= i18n_attributes(@classrooms, attribute) %></div>
+								<% %w[id date classroom_id status ].each do |attribute| %>
+									<% if @lessons.first.attributes.key?(attribute) %>
+										<div class="table-cell px-4 whitespace-nowrap"><%= i18n_attributes(@lessons, attribute) %></div>
 									<% end %>
 								<% end %>
 							</div>
 						</div>
 						<div class="table-row-group">
-							<% @classrooms.each do |classroom| %>
-								<a href="<%= backoffice_classroom_path(classroom) %>" class="table-row hover:bg-gray-100">
-									<div class="table-cell px-4 py-2"><%= classroom.id %></div>
-									<div class="table-cell px-4 py-2 whitespace-nowrap"><%= classroom.project.name %></div>
-									<div class="table-cell px-4 py-2 whitespace-nowrap"><%= classroom.ceic.slug %></div>
-									<div class="table-cell px-4 py-2"><%= classroom.schedule.strftime('%H:%M') %></div>
-									<div class="table-cell px-4 py-2"><%= classroom.active %></div>
+							<% @lessons.each do |lesson| %>
+								<a href="<%= backoffice_lesson_path(lesson) %>" class="table-row hover:bg-gray-100">
+									<div class="table-cell px-4 py-2"><%= lesson.id %></div>
+									<div class="table-cell px-4 py-2 whitespace-nowrap"><%= l(lesson.date.to_date) %></div>
+									<div class="table-cell px-4 py-2 whitespace-nowrap"><%= lesson.classroom_id %></div>
+									<div class="table-cell px-4 py-2"><%= lesson.status %></div>
 								</a>
 							<% end %>
 						</div>
@@ -55,7 +50,7 @@
 		</div>
 	</div>
 </div>
-<%#= paginate @classrooms %>
+<%#= paginate @lessons %>
 <footer class="bg-white border-t border-gray-400 shadow">
 	<div class="container max-w-md mx-auto flex py-8">
 		<div class="w-full mx-auto flex flex-wrap">

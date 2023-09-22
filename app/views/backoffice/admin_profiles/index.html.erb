@@ -1,4 +1,41 @@
-<div>
-  <h1 class="font-bold text-4xl">Backoffice::AdminProfiles#index</h1>
-  <p>Find me in app/views/backoffice/admin_profiles/index.html.erb</p>
+<div class="px-4 md:mt-8 mb-16 text-gray-800">
+  <div class="p-5">
+    <div class="bg-white border rounded shadow">
+      <div class="flex flex-wrap">
+        <div class="w-1/2 border-b p-3 text-lg font-bold uppercase text-gray-600">
+          <%= @admin_profiles.model_name.human(count: 2) %>
+        </div>
+        <div class="w-1/2 border-b p-3 text-sm text-right font-bold text-gray-600">
+					<%= link_to new_backoffice_admin_profile_path, class:"text-cyan-600 hover:text-gray-500" do %>
+						<i class="fas fa-user-plus mr-1"></i><span class="text-sm invisible sm:visible"><%= t('devise.registrations.new.sign_up', resource: @admin_profiles.model_name.human) %></span>
+					<% end %>
+				</div>
+      </div>
+      <div class="p-5">
+        <div class="overflow-x-auto">
+          <div class="table w-full text-gray-700">
+            <div class="table-header-group">
+              <div class="table-row font-bold text-left text-blue-900">
+                <% %w[id name email created_at].each do |attribute| %>
+                  <% if @admin_profiles.first.attributes.key?(attribute) %>
+                    <div class="table-cell px-4 py-2"><%= i18n_attributes(@admin_profiles, attribute) %></div>
+                  <% end %>
+                <% end %>
+              </div>
+            </div>
+            <div class="table-row-group">
+              <% @admin_profiles.each do |admin| %>
+                <a href="<%= backoffice_admin_profile_path(admin) %>" class="table-row hover:bg-gray-100">
+                  <div class="table-cell px-4 py-2"><%= admin.id %></div>
+                  <div class="table-cell px-4 py-2 whitespace-nowrap"><%= admin.name %></div>
+                  <div class="table-cell px-4 py-2 whitespace-nowrap"><%= admin.admin.email %></div>
+                  <div class="table-cell px-4 py-2"><%= l(admin.created_at.to_date) %></div>
+                </a>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
