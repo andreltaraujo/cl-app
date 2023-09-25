@@ -214,10 +214,16 @@ namespace :dev do
 				classroom_ids = project.classrooms.ids
 				classrooms = Classroom.find(classroom_ids)
 				classrooms.each do |classroom|
-					Lesson.create!(
+					lesson = Lesson.create!(
 						date: date,
 						classroom: classroom
 					)
+					classroom.enrollments.each do |enrollment|
+						Attendance.create!(
+							lesson: lesson,
+							user_profile_id: enrollment.user_profile_id
+						)
+					end
 				end
 			end
 		end

@@ -15,7 +15,7 @@ class Backoffice::AttendancesController < ApplicationController
 	def create
 		@attendance = Attendance.new(attendance_params)
 		if @attendance.save!
-			flash[:notice] = "Frequência Registrada"
+			flash[:notice] = "Frequência Cadastrada"
 		else
 			redirect_to backoffice_classrooms_path, status: :unprocessable_entity
 		end
@@ -27,13 +27,14 @@ class Backoffice::AttendancesController < ApplicationController
 
 	def update
 		if @attendance.update(attendance_params)
-			flash[:notice] = "Frequência Atualizada"
+			flash[:notice] = "Frequência Registrada"
+		end
 	end
 
 	private
 
 	def set_attendance
-		@attendance = Attendance.find(params)
+		@attendance = Attendance.find(params[:id])
 	end
 
 	def attendance_params

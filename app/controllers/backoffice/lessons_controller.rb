@@ -4,7 +4,8 @@ class Backoffice::LessonsController < ApplicationController
 
 	def index
 		@lessons = Lesson.find_month_lessons(params)
-		#@classroom = Classroom.find(params[:classroom])
+		@classroom = Classroom.find(params[:classroom_id])
+		@attendance = Attendance.new
   end
 
 	def show

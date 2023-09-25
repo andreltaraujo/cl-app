@@ -21,7 +21,6 @@ class Backoffice::UserProfilesController < ApplicationController
 	end
 
 	def create
-		debugger
 		@user_profile = UserProfile.new(user_profile_params)
 		if @user_profile.save
 			redirect_to backoffice_user_profile_path(@user_profile), notice: t('devise.registrations.signed_up', resource_name: @user_profile.first_name)

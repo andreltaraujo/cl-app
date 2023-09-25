@@ -31,63 +31,33 @@
 										<div class="table-cell whitespace-nowrap"><%= @classroom.class.human_attribute_name(attribute) %></div>
 									<% end %>
 									<% @classroom_month_lessons.each do |lesson| %>
-										<div class="table-cell px-2 whitespace-nowrap"><%= lesson.id %>:<%= lesson.date.strftime('%d-%m-%Y') %></div>
+										<div class="table-cell whitespace-nowrap"><%= lesson.date.strftime('%d-%m-%Y') %></div>
 									<% end %>
 								</div>
 							</div>
-							<% if @classroom.enrollments.blank? %>
-								<div id="error_explanation" data-turbo-cache="false" class="flex p-2 bg-red-100 border border-red-400 text-sm font-medium text-red-700 py-2 rounded-lg justify-center mx-8 sm:mx-auto max-w-sm">
-									<svg viewBox="0 0 24 24" class="text-red-600 w-5 h-5 sm:w-5 sm:h-5 mr-3">
-										<path fill="currentColor" d="M11.983,0a12.206,12.206,0,0,0-8.51,3.653A11.8,11.8,0,0,0,0,12.207,11.779,11.779,0,0,0,11.8,24h.214A12.111,12.111,0,0,0,24,11.791h0A11.766,11.766,0,0,0,11.983,0ZM10.5,16.542a1.476,1.476,0,0,1,1.449-1.53h.027a1.527,1.527,0,0,1,1.523,1.47,1.475,1.475,0,0,1-1.449,1.53h-.027A1.529,1.529,0,0,1,10.5,16.542ZM11,12.5v-6a1,1,0,0,1,2,0v6a1,1,0,1,1-2,0Z"></path>
-									</svg>
-									"Não Há alunos matriculados nesta turma neste mês"
-								</div>
-							<% else %>
-								<% @classroom.enrollments.each do |enroll| %>
-									<div class="table-row-group">
-										<div class="table-cell py-2 pr-2 whitespace-nowrap"><%= enroll.user_profile.full_name %></div>
-										<% unless @classroom_month_lessons.blank? %>
-											<% if @classroom_month_lessons.first.attendances.any? %>
-												<% @classroom_month_lessons.first.attendances.first.user_profile.attendances.each do |attendance| %>
-													<div class="table-cell">
-														<%= form_with model: [:backoffice, attendance] do |f| %>
-															<div class="flex flex-col pl-2">
-																<div>
-																	<%= attendance.id%>:<%= attendance.lesson_id%>:<%= f.radio_button :attended, true, class:"mr-1" %><%= f.label :attended, 'Presente', class:"text-sm", for:"attendance_attended_true" %>
-																</div>
-																<div>
-																	<%= f.radio_button :attended, false, class:"mr-1" %><%= f.label :attended, 'Faltou', class:"text-sm", for:"attendance_attended_false" %>
-																</div>
-															</div>
-														<% end %>
-													</div>
-												<% end%>
-											<% else %>
-												<% @classroom_month_lessons.each do |lesson| %>
-													<div class="table-cell">
-														<%= turbo_frame_tag "add-attendance" do %>
-															<%= form_with model: [:backoffice, @attendance], data: { turbo_frame: "add-attendance", controller: "add-attendances", action: "click->add-attendances#submit"} do |f| %>
-																<%= f.hidden_field :lesson_id, value: lesson.id %><%= f.hidden_field :user_profile_id, value: enroll.user_profile.id%>
-																<div class="flex flex-col pl-2">
-																	<div>
-																		<%= f.radio_button :attended, true, class:"mr-1" %><%= f.label :attended, 'Presente', class:"text-sm", for:"attendance_attended_true" %>
-																	</div>
-																	<div>
-																		<%= f.radio_button :attended, false, class:"mr-1" %><%= f.label :attended, 'Faltou', class:"text-sm", for:"attendance_attended_false" %>
-																	</div>
-																</div>
-															<% end %>
-														<% end %>
+							<div class="table-row-group">
+								<% @user_profiles.each do |user_profile| %>
+									<div class="table-row">
+										<div class="table-cell py-2 whitespace-nowrap">
+											<%= user_profile.full_name %>
+										</div>
+										<% @classroom_month_lessons.each do |lesson| %>
+											<div class="table-cell">
+												<%= form_with model: [:backoffice, user_profile.attendances.where(lesson_id: lesson).first], method: :patch, data: { turbo_frame: "update-attendance", controller: "update-attendances", action: "click->update-attendances#submit"} do |f| %>
+													<div class="flex flex-col">
+														<div>
+															<%= f.radio_button :attended, true, class: "mr-1" %><%= f.label :attended, 'Presente', class: "text-sm", for: "attendance_attended_true" %>
+														</div>
+														<div>
+															<%= f.radio_button :attended, false, class: "mr-1" %><%= f.label :attended, 'Faltou', class: "text-sm", for: "attendance_attended_false" %>
+														</div>
 													</div>
 												<% end %>
-											<% end %>
-										<% else %>
-											<div id="error_explanation" data-turbo-cache="false" class="flex p-2 bg-red-100 border border-red-400 text-sm font-medium text-red-700 py-2 rounded-lg justify-center mx-8 sm:mx-auto max-w-sm"><svg viewBox="0 0 24 24" 		class="text-red-600 w-5 h-5 sm:w-5 sm:h-5 mr-3"><path fill="currentColor"d="M11.983,0a12.206,12.206,0,0,0-8.51,3.653A11.8,11.8,0,0,0,0,12.207,11.779,11.779,0,0,0,11.8,24h.214A12.111,12.111,0,0,0,24,11.791h0A11.766,11.766,0,0,0,11.983,0ZM10.5,16.542a1.476,1.476,0,0,1,1.449-1.53h.027a1.527,1.527,0,0,1,1.523,1.47,1.475,1.475,0,0,1-1.449,1.53h-.027A1.529,1.529,0,0,1,10.5,16.542ZM11,12.5v-6a1,1,0,0,1,2,0v6a1,1,0,1,1-2,0Z"></path></svg>"Não Há aulas ministradas registradas neste mês"
 											</div>
 										<% end %>
 									</div>
 								<% end %>
-							<% end %>
+							</div>
 						</div> 
 					</div>
 				</div>

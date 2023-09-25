@@ -4,9 +4,6 @@
 
 import { application } from "./application"
 
-import AddAttendancesController from "./add_attendances_controller"
-application.register("add-attendances", AddAttendancesController)
-
 import DynamicClassroomsController from "./dynamic_classrooms_controller"
 application.register("dynamic-classrooms", DynamicClassroomsController)
 
@@ -18,3 +15,6 @@ application.register("nested-rondo", NestedRondoController)
 
 import SearchController from "./search_controller"
 application.register("search", SearchController)
+
+import UpdateAttendancesController from "./update_attendances_controller"
+application.register("update-attendances", UpdateAttendancesController)
