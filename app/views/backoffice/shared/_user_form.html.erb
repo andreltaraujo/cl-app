@@ -27,7 +27,9 @@
 			<div data-controller="nested-rondo">
 				<div data-nested-rondo-target="fieldContain">
 					<%= f.fields_for :phone_numbers do |phone_number| %>
+					<div id="phone_numbers" class="phone-field">
 						<%= render 'phone_number_fields', f: phone_number %>
+					</div>
 					<% end %>
 					<% if action_name != 'show' %>
 						<div class="font-bold">

@@ -4,17 +4,17 @@
 		<div class="bg-white border rounded shadow">
 			<div class="flex flex-wrap">
 				<div class="w-1/2 border-b p-3 text-lg font-bold uppercase text-gray-600">
-					<%= @users.model_name.human(count: 2) %>
+					<%= @user_profiles.model_name.human(count: 2) %>
 				</div>
 				<div class="w-1/2 border-b p-3 text-lg font-bold text-gray-600">
 					<div class="text-sm float-right">
 						<%= link_to new_backoffice_user_profile_path, class:"text-cyan-600 hover:text-gray-500" do %>
-							<i class="fas fa-user-plus mr-1"></i><span class="text-sm"><%= t('devise.registrations.new.sign_up', resource: @users.model_name.human) %></span>
+							<i class="fas fa-user-plus mr-1"></i><span class="text-sm"><%= t('devise.registrations.new.sign_up', resource: @user_profiles.model_name.human) %></span>
 						<% end %>
 					</div>
 				</div>
 				<div class="w-full border-b p-3 font-bold text-gray-600">
-					<%= turbo_frame_tag "form" do %>
+					<%#= turbo_frame_tag "form" do %>
 						<%= form_tag backoffice_user_profiles_path, method: :get, data: { turbo_frame: "search-results", controller: "search", turbo_action: "advance", action: "input->search#submit" } do %>
 							<%= check_box_tag :active, "1", false, class:"p-2 rounded-sm" %>
 							<%= label_tag :active, "Ativos", class:"pr-4" %>
@@ -25,7 +25,7 @@
 								<i class="fas fa-search fa-sm"></i><span class=""></span>
 								<% end %>
 						<% end %>
-					<% end %></div>
+					<%# end %></div>
 				</div>
 			</div>
 			<%= turbo_frame_tag "search-results" do %>
@@ -35,14 +35,14 @@
 							<div class="table-header-group">
 								<div class="table-row font-bold text-left text-blue-900">
 									<% %w[id first_name active created_at].each do |attribute| %>
-										<% if @users.first.attributes.key?(attribute) %>
-											<div class="table-cell px-4"><%= i18n_attributes(@users, attribute) %></div>
+										<% if @user_profiles.first.attributes.key?(attribute) %>
+											<div class="table-cell px-4"><%= i18n_attributes(@user_profiles, attribute) %></div>
 										<% end %>
 									<% end %>
 								</div>
 							</div>
 							<div class="table-row-group">
-								<% @users.each do |user| %>
+								<% @user_profiles.each do |user| %>
 									<%= link_to backoffice_user_profile_path(user), data: { turbo_frame: "_top" }, class:"table-row hover:bg-gray-100" do %>
 										<div class="table-cell px-4 py-2"><%= user.id %></div>
 										<div class="table-cell px-4 py-2 whitespace-nowrap"><%= user.full_name%></div>
@@ -57,7 +57,7 @@
 		</div>
 	</div>
 </div>
-<%= paginate @users %>
+<%= paginate @user_profiles %>
 <footer class="bg-white border-t border-gray-400 shadow">
 	<div class="container max-w-md mx-auto flex py-8">
 		<div class="w-full mx-auto flex flex-wrap">

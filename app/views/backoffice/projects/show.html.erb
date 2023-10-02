@@ -1,16 +1,16 @@
 <!--Container-->
-<div class="px-4 md:mt-8 mb-16 text-gray-800">
+<div class="px-4 md:px-0 md:mt-8 mb-16 text-gray-800 leading-normal">
 	<div class="p-5">
 		<!--Table Card-->
 		<div class="bg-white border rounded shadow">
 			<div class="flex flex-wrap">
 				<div class="w-1/2 border-b p-3 text-lg font-bold uppercase text-gray-600">
-					<%= @projects.model_name.human(count: 2) %>
+					<%= @project.slug %>: <%= @project.classrooms.model_name.human(count: 2) %>
 				</div>
 				<div class="w-1/2 border-b p-3 text-lg font-bold text-gray-600">
 					<div class="text-sm float-right">
-						<%= link_to new_backoffice_project_path, class:"text-cyan-600 hover:text-gray-500" do %>
-							<i class="fas fa-project-diagram mr-1"></i><span class="text-sm"><%= t('devise.registrations.new.sign_up', resource: @projects.model_name.human) %></span>
+						<%= link_to :back, class:"text-cyan-600 hover:text-gray-500" do %>
+							<i class="fas fa-arrow-left mr-1"></i><span class="text-sm"><%= t('devise.shared.links.back') %></span>
 						<% end %>
 					</div>
 				</div>
@@ -19,21 +19,22 @@
 				<div class="overflow-x-auto">
 					<div class="table w-full text-gray-700">
 						<div class="table-header-group">
-							<div class="table-row font-bold text-left text-blue-900">
-								<% %w[id name slug created_at].each do |attribute| %>
-									<% if @projects.first.attributes.key?(attribute) %>
-										<div class="table-cell px-4"><%= i18n_attributes(@projects, attribute) %></div>
+							<div class="table-row font-bold text-blue-900">
+								<% %w[id ceic_id schedule active created_at].each do |attribute| %>
+									<% if @project.classrooms.first.attributes.key?(attribute) %>
+										<div class="table-cell px-4"><%= @project.class.human_attribute_name(attribute) %></div>
 									<% end %>
 								<% end %>
 							</div>
 						</div>
 						<div class="table-row-group">
-							<% @projects.each do |project| %>
-								<a href="<%= backoffice_project_path(project) %>" class="table-row hover:bg-gray-100">
-									<div class="table-cell px-4 py-2"><%= project.id %></div>
-									<div class="table-cell px-4 py-2 whitespace-nowrap"><%= project.name%></div>
-									<div class="table-cell px-4 py-2"><%= project.slug%></div>
-									<div class="table-cell px-4 py-2"><%= l(project.created_at.to_date) %></div>
+							<% @project.classrooms.each do |classroom| %>
+								<a href="<%= backoffice_classroom_path(classroom) %>" class="table-row hover:bg-gray-100">
+									<div class="table-cell px-4 py-2"><%= classroom.id %></div>
+									<div class="table-cell px-4 py-2 whitespace-nowrap"><%= classroom.ceic.slug %></div>
+									<div class="table-cell px-4 py-2"><%= classroom.schedule.strftime('%H:%M') %></div>
+									<div class="table-cell px-4 py-2"><%= classroom.active %></div>
+									<div class="table-cell px-4 py-2"><%= l(classroom.created_at.to_date) %></div>
 								</a>
 							<% end %>
 						</div>
@@ -77,5 +78,3 @@
 		</div>
 	</div>
 </footer>
-
-

@@ -20,5 +20,6 @@ Rails.application.routes.draw do
 	 get '/users_reports', to: 'analytics#users_reports'
 	 get '/enrollments_reports', to: 'analytics#enrollments_reports'
 	 get '/projects_reports', to: 'analytics#projects_reports'
+	 get '/project_report/:id', to: 'analytics#project_report', as: 'project_report'
 	end
 end

@@ -27,7 +27,7 @@ class Backoffice::AttendancesController < ApplicationController
 
 	def update
 		if @attendance.update(attendance_params)
-			flash[:notice] = "Frequência Registrada"
+			flash[:notice] = "Frequência Atualizada"
 		end
 	end
 

@@ -1,6 +1,6 @@
 class Backoffice::EducProfilesController < ApplicationController
 	before_action :authenticate_educ!, except: [:index, :new, :create]
-	before_action :set_classroom_educ, only: [:show, :edit, :update]
+	before_action :set_classroom_educ, only: [:show, :update]
 	before_action :educ_layout, except: [:index, :new, :create]
 	
 	def index

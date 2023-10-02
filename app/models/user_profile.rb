@@ -20,9 +20,9 @@ class UserProfile < ApplicationRecord
 	def self.search(params)
 		query = all
 		if params[:active].present?
-			query = query.where(active: true)
+			query = query.active
 		elsif params[:inactive].present?
-			query = query.where(active: false)
+			query = query.inactive
 		end
 
 		if params[:search].present?

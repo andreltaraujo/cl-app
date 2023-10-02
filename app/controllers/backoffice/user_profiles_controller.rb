@@ -1,12 +1,12 @@
 class Backoffice::UserProfilesController < ApplicationController
-  layout 'admins'
-	include ActionView::RecordIdentifier
+	before_action :authenticate_admin!
 	before_action :set_user_profile, only: :show
 	before_action :set_rooms, only: :new
+	layout 'admins'
 
 	def index
-		@users = UserProfile.order(:first_name).page(params[:page]).search(params)
-  end
+		@user_profiles = UserProfile.order(:first_name).page(params[:page]).search(params)
+	end
 
 	def show
 		@user_profile.enrollments.each do |enroll|
@@ -37,7 +37,7 @@ class Backoffice::UserProfilesController < ApplicationController
 	def set_user_profile
 		@user_profile = UserProfile.find(params[:id])
 	end
-
+	
 	def set_rooms
 		@rooms = Classroom.where(project_id: 1, ceic_id: 1)
 	end

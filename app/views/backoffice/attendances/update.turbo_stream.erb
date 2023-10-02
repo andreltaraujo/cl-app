@@ -1,2 +1,1 @@
-<%= turbo_stream.update("flash") %>
-<%= turbo_stream.replace(dom_id(@attendance)) %>%
+<%= turbo_stream.append("lessons-results", partial: "shared/flash") %>
