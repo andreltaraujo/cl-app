@@ -1,0 +1,20 @@
+<div class='nested-fields'>
+	<div data-controller="dynamic-classrooms">
+		<div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+			<div>
+				<%= f.label :project_id, class:"p-2 block text-sm text-gray-900" %>
+				<%= f.collection_select :project_id, Project.all, :id, :name, {}, class: "w-full rounded-md px-4 py-1.5 text-gray-900 shadow-md text-sm", "data-dynamic-classrooms-target": "project_id", "data-action": "change->dynamic-classrooms#fetchSchedules" %>
+			</div>
+			<div>
+				<%= f.label :ceic_id, class:"p-2 block text-sm text-gray-900"%>
+				<%= f.collection_select :ceic_id, Ceic.all, :id, :slug, {}, class:"w-1/2 rounded-md px-4 py-1.5 text-gray-900 shadow-md text-sm", "data-dynamic-classrooms-target": "ceic_id", "data-action": "change->dynamic-classrooms#fetchSchedules"%>
+			</div>
+			<div>
+				<%= f.label :classroom_id, class:"p-2 block text-sm text-gray-900" %>
+				<%= f.collection_select :classroom_id, @rooms, :id, :schedule, {}, class:"w-1/2 rounded-md px-4 py-1.5 text-gray-900 shadow-md text-sm", "data-dynamic-classrooms-target": "classroom_id"%>
+			</div>
+		</div>
+	</div>
+	<%= link_to_remove_association('Remover', f, class:"p-2 text-sm text-gray-900")  %>
+	<hr class="mt-2 border border-1">
+</div>

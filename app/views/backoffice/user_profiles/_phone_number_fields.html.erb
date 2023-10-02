@@ -1,0 +1,7 @@
+<div class="nested-fields">
+  <%= f.label :number, class:"p-2 block text-sm text-gray-900" %>
+	<%= f.text_field :number, class:"phone-field rounded-md px-4 py-1.5 text-gray-900 shadow-md ring-2 ring-gray-300 text-sm" %>
+	<% if action_name == 'new' %>
+		<%= link_to_remove_association('Remover', f, class:"pl-2 text-sm text-gray-900")  %>
+	<% end %>
+</div>

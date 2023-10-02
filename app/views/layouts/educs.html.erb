@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Cl-App</title>
+		<meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+		<meta http-equiv="X-UA-Compatible" content="ie=edge">
+		<meta name="description" content="description here">
+		<meta name="keywords" content="keywords,here">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+		<%= stylesheet_link_tag "tailwind", "inter-font", "data-turbo-track": "reload" %>
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+    <%= javascript_importmap_tags %>
+  </head>
+	<body class="bg-cover bg-no-repeat bg-[url('bgtop.jpg')]">
+		<div class="container-fluid">
+			<nav id="header" class="bg-white fixed w-full z-10 top-0 shadow">
+				<div class="w-full container mx-auto flex flex-wrap items-center pt-3 pb-3 pr-4">
+					<div class="w-1/2 pl-2">
+						<div class="flex-grow lg:flex lg:items-center lg:w-auto hidden bg-white z-0" id="nav-content">
+							<ul class="lg:flex flex-1 items-center">
+								<li class="mr-6 my-2 md:my-0">
+									<a href="<%= backoffice_educ_profiles_path %>" class="block py-1 md:py-3 pl-1 align-middle no-underline text-cyan-600 hover:text-gray-500 border-b-2 border-white hover:border-cyan-500 <%="text-lime-500 border-b-2 border-orange-600" if controller_name == 'educs' %>">
+										<i class="fas fa-chalkboard-teacher fa-fw mr-3"></i><span class="pb-1 md:pb-0 text-sm">Educadores</span>
+									</a>
+								</li>
+								<li class="relative group mr-6 my-2 md:my-0">
+									<a href="#" class="block py-1 md:py-3 pl-1 align-middle text-cyan-600 no-underline hover:text-gray-500 border-b-2 border-white hover:border-green-500 <%= "text-lime-500 border-b-2 border-orange-500 hover:border-orange-600" if controller_name == 'analytics' %>"
+										onclick="toggleDropdown(this)">
+										<i class="fas fa-chart-area fa-fw mr-3"></i><span class="pb-1 md:pb-0 text-sm">Relatórios</span>
+									</a>
+									<div class="absolute hidden w-32 py-2 mt-2 bg-white border border-gray-300 rounded-md shadow-lg" id="dropdown-menu">
+										<%= link_to 'Resumo', backoffice_analytics_path, class:"block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" %>
+										<%= link_to 'Usuários', backoffice_users_reports_path, class:"block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" %>
+										<%= link_to 'Matrículas', backoffice_enrollments_reports_path, class:"block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" %>
+										<%= link_to 'Projetos', backoffice_projects_reports_path, class:"block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" %>
+									</div>
+								</li>
+								<li class="mr-6 my-2 md:my-0">
+									<a href="<%= backoffice_classrooms_path %>" class="block py-1 md:py-3 pl-1 align-middle text-cyan-600 no-underline hover:text-gray-500 border-b-2 border-white hover:border-red-500">
+										<i class="fas fa-chalkboard fa-fw mr-3"></i></i><span class="pb-1 md:pb-0 text-sm">Turmas</span>
+									</a>
+								</li>
+							</ul>
+						</div>
+					</div>
+					<div class="w-1/2">
+						<div class="flex flex-wrap float-right">
+							<div class="relative text-sm">
+								<button id="educButton" class="flex items-center focus:outline-none mr-3">
+									<img class="w-8 h-8 rounded-full mr-4" src="#" alt="Avatar of User"><span class="hidden md:inline-block"><%= t('devise.sessions.welcome') %> <%= current_educ.email %></span>
+									<svg class="pl-2 h-2" version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 129 129" xmlns:xlink="http://www.w3.org/1999/xlink" enable-background="new 0 0 129 129">
+										<g>
+											<path d="m121.3,34.6c-1.6-1.6-4.2-1.6-5.8,0l-51,51.1-51.1-51.1c-1.6-1.6-4.2-1.6-5.8,0-1.6,1.6-1.6,4.2 0,5.8l53.9,53.9c0.8,0.8 1.8,1.2 2.9,1.2 1,0 2.1-0.4 2.9-1.2l53.9-53.9c1.7-1.6 1.7-4.2 0.1-5.8z" />
+										</g>
+									</svg>
+								</button>
+								<div id="educMenu" class="bg-white rounded shadow-md mt-4 absolute sm:start-1/3 overflow-auto z-30 invisible">
+									<ul>
+										<li><%= link_to t("devise.shared.links.my_account"), backoffice_educ_profile_path(current_educ), class:"block text-left text-gray-900 px-4 pt-2 hover:bg-gray-300" %></li>
+											<hr class="border-t mx-2 border-gray-400">
+										</li>
+										<li><%= button_to t("devise.shared.links.sign_out"), destroy_educ_session_path, method: :delete, class:"w-full text-left text-gray-900 pl-4 py-2 hover:bg-gray-300" %></li>
+									</ul>
+								</div>
+							</div>
+							<div class="block lg:hidden pr-4">
+								<button id="nav-toggle" class="flex items-center px-3 py-2 border rounded text-gray-500 border-gray-600 hover:text-cyan-900 hover:border-cyan-600 appearance-none focus:outline-none">
+									<svg class="fill-current h-3 w-3" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+										<title>Menu</title>
+										<path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z" />
+									</svg>
+								</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</nav>
+			<%= image_tag("logo.png", class:"pt-16 lg:pt-28 w-72 sm:w-auto sm:mx-auto") %>
+      <% if notice %>
+        <p class="flex bg-teal-100 border border-teal-400 text-sm font-medium text-teal-700 p-2 rounded-lg justify-center mx-8 sm:mx-auto max-w-xs">
+          <svg viewBox="0 0 24 24" class="text-teal-600 w-5 h-5 sm:w-5 sm:h-5 mr-3">
+            <path fill="currentColor"
+              d="M12,0A12,12,0,1,0,24,12,12.014,12.014,0,0,0,12,0Zm6.927,8.2-6.845,9.289a1.011,1.011,0,0,1-1.43.188L5.764,13.769a1,1,0,1,1,1.25-1.562l4.076,3.261,6.227-8.451A1,1,0,1,1,18.927,8.2Z">
+            </path>
+          </svg>
+          <%= notice %>
+        </p>
+      <% end %>
+      <% if alert %>
+        <p class="flex bg-red-100 border border-red-400 text-sm font-medium text-red-700 py-2 rounded-lg justify-center mx-8 sm:mx-auto max-w-xs">
+          <svg viewBox="0 0 24 24" class="text-red-600 w-5 h-5 sm:w-5 sm:h-5 mr-3">
+            <path fill="currentColor"
+              d="M11.983,0a12.206,12.206,0,0,0-8.51,3.653A11.8,11.8,0,0,0,0,12.207,11.779,11.779,0,0,0,11.8,24h.214A12.111,12.111,0,0,0,24,11.791h0A11.766,11.766,0,0,0,11.983,0ZM10.5,16.542a1.476,1.476,0,0,1,1.449-1.53h.027a1.527,1.527,0,0,1,1.523,1.47,1.475,1.475,0,0,1-1.449,1.53h-.027A1.529,1.529,0,0,1,10.5,16.542ZM11,12.5v-6a1,1,0,0,1,2,0v6a1,1,0,1,1-2,0Z">
+            </path>
+          </svg>
+     			<%= alert %>
+        </p>
+      <% end %>
+			<%= yield %>
+		</div>
+	</body>
+	<script>
+		function toggleDropdown(menuItem) {
+			const dropdown = document.getElementById('dropdown-menu');
+			dropdown.classList.toggle('hidden');
+
+			window.addEventListener('click', function(event) {
+				if (!menuItem.contains(event.target) && !dropdown.contains(event.target)) {
+					dropdown.classList.add('hidden');
+				}
+			});
+		}
+		var educMenuDiv = document.getElementById("educMenu") 
+		var educMenu = document.getElementById("educButton");
+		var navMenuDiv = document.getElementById("nav-content");
+		var navMenu = document.getElementById("nav-toggle");
+		document.onclick = check;
+		function check(e) {
+			var target = (e && e.target) || (event && event.srcElement);
+
+			if (!checkParent(target, educMenuDiv)) {
+				if (checkParent(target, educMenu)) {
+					if (educMenuDiv.classList.contains("invisible")) {
+							educMenuDiv.classList.remove("invisible");
+					} else { educMenuDiv.classList.add("invisible"); }
+				} else {
+					educMenuDiv.classList.add("invisible");
+				}
+			}
+			if (!checkParent(target, navMenuDiv)) {
+				if (checkParent(target, navMenu)) {
+					if (navMenuDiv.classList.contains("hidden")) {
+						navMenuDiv.classList.remove("hidden");
+					} else { navMenuDiv.classList.add("hidden"); }
+				} else {
+					navMenuDiv.classList.add("hidden");
+				}
+			}
+		}
+		function checkParent(t, elm) {
+			while (t.parentNode) {
+				if (t == elm) { return true; }
+				t = t.parentNode;
+			}
+			return false;
+		}
+	</script>
+</html>

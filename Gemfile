@@ -51,8 +51,11 @@ gem "devise"
 # Centralization of locale data collection for Ruby on Rails
 gem 'rails-i18n', '~> 7.0.0'
 
-# Faker is a port of Perl's Data::Faker library. It's a library for generating fake data
-gem 'faker'
+#A Scope & Engine based, clean, powerful, customizable and sophisticated paginator for modern web app frameworks and ORMs
+gem 'kaminari'
+
+# Handle dynamic nested forms, same as Cocoon, but using StimulusJS
+gem 'rondo_form', '~> 0.2.3'
 
 # Use Sass to process CSS
 # gem "sassc-rails"
@@ -63,6 +66,9 @@ gem 'faker'
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem "debug", platforms: %i[ mri mingw x64_mingw ]
+
+	# Faker is a port of Perl's Data::Faker library. It's a library for generating fake data
+	gem 'faker'
 end
 
 group :development do
