@@ -8,6 +8,8 @@ class Lesson < ApplicationRecord
 		joins(classroom: :project).where(status: 'open', date: start_date..end_date, projects: { id: project_ids } )
 	}
 
+	scope :open_by_project, ->(project_id) { joins(classroom: :project).where(status: 'open', projects: { id: project_id }) }
+
 	scope :classroom_lessons, ->(classroom_id) { where(classroom_id: classroom_id) }
 
 	def self.search(params)

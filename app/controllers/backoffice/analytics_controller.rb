@@ -40,9 +40,14 @@ class Backoffice::AnalyticsController < ApplicationController
 
 	def projects_reports
 		@projects = Project.all
+		@project_attendance_counts = Attendance.attendance_counts_by_project(@projects)
 	end
 
 	def project_report
 		@project = Project.find(params[:id])
+		@project_attendance_counts = Attendance.attended_by_project(@project).count
+		@project_lesson_counts = Lesson.open_by_project(@project.id).count
+		@project_active_enrollment_counts = @project.enrollments.active.count
+		@project_canceled_enrollment_counts = @project.enrollments.canceled.count
 	end
 end

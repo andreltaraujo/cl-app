@@ -28,4 +28,9 @@ class Attendance < ApplicationRecord
 	def self.find_lessons_attendances(lessons)
 		where(lesson_id: lessons)
 	end
+
+	def self.attendance_counts_by_project(projects)
+    attended_counts = self.attended_by_project(projects.pluck(:id)).group(:project_id).count
+    Hash.new(0).tap { |h| attended_counts.each { |k, v| h[k] = v } }
+  end
 end

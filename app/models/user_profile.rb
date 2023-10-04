@@ -10,8 +10,11 @@ class UserProfile < ApplicationRecord
 
 	validates :first_name, :last_name, :birthdate, presence: true
 
-	scope :active, -> {where(active: true)}
-	scope :inactive, -> {where(active: false)}
+	scope :active, ->{where(active: true)}
+	scope :inactive, ->{where(active: false)}
+
+	scope :male, ->{where(genre: 'male')}
+	scope :female, ->{where(genre: 'female')}
 
 	def full_name
 		[self.first_name, self.last_name].join(' ')

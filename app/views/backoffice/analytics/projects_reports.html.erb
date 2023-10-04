@@ -40,7 +40,7 @@
 							</div>
 							<div class="flex-1 text-right md:text-center">
 								<p class="font-bold uppercase text-xs sm:text-sm text-gray-500 pr-2">Atendimentos</p>
-								<p class="font-bold text-2xl"><%= Attendance.attended_by_project(project).size %><span class="text-blue-600"><i class="fas fa-caret-up"></i></span></p>
+								<p class="font-bold text-2xl"><%= @project_attendance_counts[project.id] %><span class="text-blue-600"><i class="fas fa-caret-up"></i></span></p>
 							</div>
 						</div>
 					<% end %>

@@ -4,8 +4,6 @@ class Classroom < ApplicationRecord
 	has_many :lessons
 	has_many :enrollments
 
-	scope :first_group, -> {where(project_id: 1, ceic_id: 1)}
-
 	def month_lessons(classroom_params)
 		Lesson.find_month_lessons(classroom_params)
 	end
