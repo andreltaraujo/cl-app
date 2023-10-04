@@ -1,54 +1,59 @@
 <!--Container-->
 	<div class="w-full px-4 md:px-0 md:mt-8 mb-16 text-gray-800 leading-normal">
 		<!--Console Content-->
-		<div class="uppercase font-bold text-3xl pl-4">Usuários</div>
+		<div class="uppercase font-bold text-3xl pl-4">Matrículas</div>
 		<div class="flex flex-wrap">
+			<div class="w-full md:w-1/2 xl:w-1/3 p-3">
+			<!--Metric Card-->
+			<div class="bg-white border rounded shadow p-2">
+				<%= link_to backoffice_enrollments_path do %>
+					<div class="flex flex-row items-center">
+						<div class="flex-shrink pr-4">
+							<div class="rounded p-3 bg-blue-600"><i class="fas fa-id-card fa-2x fa-fw fa-inverse"></i></div>
+						</div>
+						<div class="flex-1 text-right md:text-center">
+							<h5 class="font-bold uppercase text-gray-500">Matrículas Total</h5>
+							<h3 class="font-bold text-3xl"><%= @enrollments %><span class="text-blue-600"><i class="fas fa-caret-up"></i></span></h3>
+						</div>
+					</div>
+				<% end %>
+			</div>
+			<!--/Metric Card-->
+		</div>
+			<div class="w-full md:w-1/2 xl:w-1/3 p-3">
+				<!--enrollments Card-->
+				<div class="bg-white border rounded shadow p-2">
+						<div class="flex flex-row items-center">
+							<div class="flex-shrink pr-4">
+								<div class="rounded p-3 bg-green-600"><i class="fas fa-id-card fa-2x fa-fw fa-inverse"></i></div>
+							</div>
+							<div class="flex-1 text-right md:text-center">
+								<h5 class="font-bold uppercase text-gray-500">Matrículas Ativas</h5>
+								<h3 class="font-bold text-3xl"><%= @active_enrollments %><span class="text-blue-600"><i class="fas fa-caret-up"></i></span><%#= @enrollments.first.classrooms.first.model_name.human(count: 2)%></h3>
+							</div>
+						</div>
+				</div>
+				<!--/Metric Card-->
+			</div>
 			<div class="w-full md:w-1/2 xl:w-1/3 p-3">
 				<!--Metric Card-->
 				<div class="bg-white border rounded shadow p-2">
-					<%= link_to backoffice_user_profiles_path, class:"flex flex-row items-center" do %>
-						<div class="flex-shrink pr-4">
-							<div class="rounded p-3 bg-blue-600"><i class="fa fa-users fa-2x fa-fw fa-inverse"></i></div>
-						</div>
-						<div class="flex-1 text-right md:text-center">
-							<h5 class="font-bold uppercase text-gray-500">Usuários Total</h5>
-							<h3 class="font-bold text-3xl"><%= @user_profiles %><span class="text-blue-600"><i class="fas fa-caret-up"></i></span></h3>
+					<%= link_to backoffice_enrollments_path do %>
+						<div class="flex flex-row items-center">
+							<div class="flex-shrink pr-4">
+								<div class="rounded p-3 bg-red-600"><i class="fas fa-id-card fa-2x fa-fw fa-inverse"></i></div>
+							</div>
+							<div class="flex-1 text-right md:text-center">
+								<h5 class="font-bold uppercase text-gray-500">Matrículas Canceladas</h5>
+								<h3 class="font-bold text-3xl"><%= @canceled_enrollments %><span class="text-red-500"><i class="fas fa-caret-down"></i></span></h3>
+							</div>
 						</div>
 					<% end %>
 				</div>
 				<!--/Metric Card-->
 			</div>
-			<div class="w-full md:w-1/2 xl:w-1/3 p-3">
-				<!--Metric Card-->
-				<div class="bg-white border rounded shadow p-2">
-					<div class="flex flex-row items-center">
-						<div class="flex-shrink pr-4">
-							<div class="rounded p-3 bg-green-600"><i class="fas fa-users fa-2x fa-fw fa-inverse"></i></div>
-						</div>
-						<div class="flex-1 text-right md:text-center">
-							<h5 class="font-bold uppercase text-gray-500">Usuários Ativos</h5>
-							<h3 class="font-bold text-3xl"><%= @active_user_profiles %><span class="text-pink-500"><i class="fas fa-exchange-alt"></i></span></h3>
-						</div>
-					</div>
-				</div>
-				<!--/Metric Card-->
-			</div>
-			<div class="w-full md:w-1/2 xl:w-1/3 p-3">
-				<!--Metric Card-->
-				<div class="bg-white border rounded shadow p-2">
-					<div class="flex flex-row items-center">
-						<div class="flex-shrink pr-4">
-							<div class="rounded p-3 bg-red-600"><i class="fas fa-users-slah fa-2x fa-inverse"><svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 640 512"><path d="M38.8 5.1C28.4-3.1 13.3-1.2 5.1 9.2S-1.2 34.7 9.2 42.9l592 464c10.4 8.2 25.5 6.3 33.7-4.1s6.3-25.5-4.1-33.7L440.6 320H618.7c11.8 0 21.3-9.6 21.3-21.3C640 239.8 592.2 192 533.3 192H490.7c-15.9 0-31 3.5-44.6 9.7c1.3 7.2 1.9 14.7 1.9 22.3c0 30.2-10.5 58-28 79.9l-25.2-19.7C408.1 267.7 416 246.8 416 224c0-53-43-96-96-96c-31.1 0-58.7 14.8-76.3 37.7l-40.6-31.8c13-14.2 20.9-33.1 20.9-53.9c0-44.2-35.8-80-80-80C116.3 0 91.9 14.1 77.5 35.5L38.8 5.1zM106.7 192C47.8 192 0 239.8 0 298.7C0 310.4 9.6 320 21.3 320H234.7c.2 0 .4 0 .7 0c-20.6-18.2-35.2-42.8-40.8-70.8L121.8 192H106.7zM261.3 352C187.7 352 128 411.7 128 485.3c0 14.7 11.9 26.7 26.7 26.7H485.3c10.5 0 19.5-6 23.9-14.8L324.9 352H261.3zM512 160A80 80 0 1 0 512 0a80 80 0 1 0 0 160z" fill='white'/></svg></i></div>
-						</div>
-						<div class="flex-1 text-right md:text-center">
-							<h5 class="font-bold uppercase text-gray-500">Usuários Inativos</h5>
-							<h3 class="font-bold text-3xl"><%= @inactive_user_profiles %><span class="text-red-600"><i class="fas fa-caret-down"></i></span></h3>
-						</div>
-				</div>
-			</div>
-			<!--/Metric Card-->
-			</div>
 		</div>
+		
 		<!--Divider-->
 		<hr class="border-b-2 border-gray-400 my-8 mx-4">
 		<div class="flex flex-row flex-wrap flex-grow mt-2">
@@ -56,10 +61,10 @@
 				<!--Graph Card-->
 				<div class="bg-white border rounded shadow">
 					<div class="border-b p-3">
-						<h5 class="font-bold uppercase text-gray-600">Users x Enrollments</h5>
+						<h5 class="font-bold uppercase text-gray-600">Matrículas</h5>
 					</div>
 					<div class="p-5">
-						<canvas id="chartjs-7" data-users-size="<%= @user_profiles %>" class="chartjs" width="undefined" height="undefined"></canvas>
+						<canvas id="chartjs-7" class="chartjs" width="undefined" height="undefined"></canvas>
 					</div>
 				</div>
 			<!--/Graph Card-->

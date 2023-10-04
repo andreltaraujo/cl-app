@@ -1,0 +1,81 @@
+<div class="px-4 text-gray-800">
+	<div class="p-5">
+		<div class="bg-white border rounded shadow">
+			<div class="flex flex-wrap">
+				<div class="w-1/2 border-b p-3 text-lg font-bold uppercase text-gray-600">
+					<%= @lesson.model_name.human %>
+				</div>
+				<div class="w-1/2 border-b p-4 text-gray-600">
+					<div class="flex float-right">
+						<%= link_to :back, class:"text-sm text-cyan-600 hover:text-gray-500" do %>
+							<i class="fas fa-arrow-left fa-fw mr-1"></i><span class=""><%= t('devise.shared.links.back') %></span>
+						<% end %>
+					</div>
+				</div>
+			</div>
+			<div class="p-5">
+				<div class="overflow-x-auto">
+					<div class="table w-full text-gray-700">
+						<div class="table-header-group">
+							<div class="table-row font-bold text-blue-900">
+								<% %w[id date classroom_id status ].each do |attribute| %>
+									<% if @lesson.attributes.key?(attribute) %>
+										<div class="table-cell px-4 whitespace-nowrap"><%= @lesson.class.human_attribute_name(attribute) %></div>
+									<% end %>
+								<% end %>
+							</div>
+						</div>
+						<div class="table-row-group">
+							<div class="table-cell px-4 py-2"><%= @lesson.id %></div>
+							<div class="table-cell px-4 py-2 whitespace-nowrap"><%= l(@lesson.date.to_date) %></div>
+							<div class="table-cell px-4 py-2 whitespace-nowrap"><%= @lesson.classroom_id %></div>
+							<div class="table-cell px-4 py-2"><%= @lesson.status %></div>
+						</div>
+						<div class="table-row-group">
+							<% @lesson.attendances.each do |attendance| %>
+								<div class="table-row">
+									<div class="table-cell pr-2 py-2 whitespace-nowrap">
+										<%= attendance.user_profile.full_name %>
+									</div>
+									<div class="table-cell">
+										<%= attendance.attended %>
+									</div>
+								</div>
+							<% end %>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<footer class="bg-white border-t border-gray-400 shadow">
+	<div class="container max-w-md mx-auto flex py-8">
+		<div class="w-full mx-auto flex flex-wrap">
+			<div class="flex w-full md:w-1/2 ">
+				<div class="px-8">
+					<h3 class="font-bold text-gray-900">About</h3>
+					<p class="py-4 text-gray-600 text-sm">
+						Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas vel mi ut felis tempus commodo nec id erat. Suspendisse consectetur dapibus velit ut lacinia.
+					</p>
+				</div>
+			</div>
+			<div class="flex w-full md:w-1/2">
+				<div class="px-8">
+					<h3 class="font-bold text-gray-900">Social</h3>
+					<ul class="list-reset items-center text-sm pt-3">
+						<li>
+							<a class="inline-block text-gray-600 no-underline hover:text-gray-900 hover:underline py-1" href="#">Add social link</a>
+						</li>
+						<li>
+							<a class="inline-block text-gray-600 no-underline hover:text-gray-900 hover:underline py-1" href="#">Add social link</a>
+						</li>
+						<li>
+							<a class="inline-block text-gray-600 no-underline hover:text-gray-900 hover:underline py-1" href="#">Add social link</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+</footer>

@@ -1,6 +1,7 @@
 <!--Container-->
 	<div class="w-full px-4 md:px-0 md:mt-8 mb-16 text-gray-800 leading-normal">
 		<!--Console Content-->
+		<div class="uppercase font-bold text-3xl pl-4">Resumo</div>
 		<div class="flex flex-wrap">
 			<div class="w-full md:w-1/2 xl:w-1/3 p-3">
 				<!--Total Users Card-->
@@ -11,8 +12,8 @@
 								<div class="rounded p-3 bg-blue-600"><i class="fa fa-users fa-2x fa-fw fa-inverse"></i></div>
 							</div>
 							<div class="flex-1 text-right md:text-center">
-								<h5 class="font-bold uppercase text-gray-500"><%= "#{@user_profiles.model_name.human(count: 2)} Total" %></h5>
-								<h3 class="font-bold text-3xl"><%= @user_profiles.size %><span class="text-blue-600"><i class="fas fa-caret-up"></i></span></h3>
+								<h5 class="font-bold uppercase text-gray-500">Usuários Total</h5>
+								<h3 class="font-bold text-3xl"><%= @user_profiles %><span class="text-blue-600"><i class="fas fa-caret-up"></i></span></h3>
 							</div>
 						<%# end %>
 					</div>
@@ -27,8 +28,8 @@
 							<div class="rounded p-3 bg-green-600"><i class="fas fa-users fa-2x fa-fw fa-inverse"></i></div>
 						</div>
 						<div class="flex-1 text-right md:text-center">
-							<h5 class="font-bold uppercase text-gray-500"><%= "#{@user_profiles.model_name.human(count: 2)} Ativos" %></h5>
-							<h3 class="font-bold text-3xl"><%= @user_profiles.active.size %><span class="text-pink-500"><i class="fas fa-exchange-alt"></i></span></h3>
+							<h5 class="font-bold uppercase text-gray-500">Usuários Ativos</h5>
+							<h3 class="font-bold text-3xl"><%= @active_user_profiles %><span class="text-pink-500"><i class="fas fa-exchange-alt"></i></span></h3>
 						</div>
 					</div>
 				</div>
@@ -43,8 +44,8 @@
 							</div>
 						</div>
 						<div class="flex-1 text-right md:text-center">
-							<h5 class="font-bold uppercase text-gray-500"><%= "#{@user_profiles.model_name.human(count: 2)} Inativos" %></h5>
-							<h3 class="font-bold text-3xl"><%= @user_profiles.inactive.size %><span class="text-red-600"><i class="fas fa-caret-down"></i></span></h3>
+							<h5 class="font-bold uppercase text-gray-500">Usuários Inativos</h5>
+							<h3 class="font-bold text-3xl"><%= @inactive_user_profiles %><span class="text-red-600"><i class="fas fa-caret-down"></i></span></h3>
 						</div>
 				</div>
 			</div>
@@ -55,11 +56,11 @@
 			<div class="bg-white border rounded shadow p-2">
 				<div class="flex flex-row items-center">
 					<div class="flex-shrink pr-4">
-						<div class="rounded p-3 bg-blue-600"><i class="fas fa-tasks fa-2x fa-fw fa-inverse"></i></div>
+						<div class="rounded p-3 bg-blue-600"><i class="fas fa-id-card fa-2x fa-fw fa-inverse"></i></div>
 					</div>
 					<div class="flex-1 text-right md:text-center">
-						<h5 class="font-bold uppercase text-gray-500"><%= "#{@enrollments.model_name.human(count: 2)} Total" %></h5>
-						<h3 class="font-bold text-3xl"><%= @enrollments.size %><span class="text-blue-600"><i class="fas fa-caret-up"></i></span></h3>
+						<h5 class="font-bold uppercase text-gray-500">Matrículas Total</h5>
+						<h3 class="font-bold text-3xl"><%= @enrollments %><span class="text-blue-600"><i class="fas fa-caret-up"></i></span></h3>
 					</div>
 				</div>
 			</div>
@@ -70,11 +71,11 @@
 				<div class="bg-white border rounded shadow p-2">
 					<div class="flex flex-row items-center">
 						<div class="flex-shrink pr-4">
-							<div class="rounded p-3 bg-green-600"><i class="fas fa-tasks fa-2x fa-fw fa-inverse"></i></div>
+							<div class="rounded p-3 bg-green-600"><i class="fas fa-id-card fa-2x fa-fw fa-inverse"></i></div>
 						</div>
 						<div class="flex-1 text-right md:text-center">
-							<h5 class="font-bold uppercase text-gray-500"><%= "#{@enrollments.model_name.human(count: 2)} Ativas" %></h5>
-							<h3 class="font-bold text-3xl"><%= @enrollments.not_canceled.size %><span class="text-pink-500"><i class="fas fa-exchange-alt"></i></span></h3>
+							<h5 class="font-bold uppercase text-gray-500">Matrículas Ativas</h5>
+							<h3 class="font-bold text-3xl"><%= @active_enrollments %><span class="text-pink-500"><i class="fas fa-exchange-alt"></i></span></h3>
 						</div>
 					</div>
 				</div>
@@ -85,11 +86,11 @@
 				<div class="bg-white border rounded shadow p-2">
 					<div class="flex flex-row items-center">
 						<div class="flex-shrink pr-4">
-							<div class="rounded p-3 bg-red-600"><i class="fas fa-tasks fa-2x fa-fw fa-inverse"></i></div>
+							<div class="rounded p-3 bg-red-600"><i class="fas fa-id-card fa-2x fa-fw fa-inverse"></i></div>
 						</div>
 						<div class="flex-1 text-right md:text-center">
-							<h5 class="font-bold uppercase text-gray-500"><%= "#{@enrollments.model_name.human(count: 2)} Canceladas" %></h5>
-							<h3 class="font-bold text-3xl"><%= @enrollments.canceled.size %><span class="text-red-500"><i class="fas fa-caret-down"></i></span></h3>
+							<h5 class="font-bold uppercase text-gray-500">Matrículas Canceladas</h5>
+							<h3 class="font-bold text-3xl"><%= @canceled_enrollments %><span class="text-red-500"><i class="fas fa-caret-down"></i></span></h3>
 						</div>
 					</div>
 				</div>
@@ -103,8 +104,8 @@
 							<div class="rounded p-3 bg-blue-600"><i class="fas fa-project-diagram fa-2x fa-fw fa-inverse"></i></div>
 						</div>
 						<div class="flex-1 text-right md:text-center">
-							<h5 class="font-bold uppercase text-gray-500"><%= "#{@projects.model_name.human(count: 2)} Ativos" %></h5>
-							<h3 class="font-bold text-3xl"><%= @projects.size %><span class="text-pink-500"><i class="fas fa-exchange-alt"></i></span></h3>
+							<h5 class="font-bold uppercase text-gray-500">Projetos Ativos</h5>
+							<h3 class="font-bold text-3xl"><%= @projects.count %><span class="text-pink-500"><i class="fas fa-exchange-alt"></i></span></h3>
 						</div>
 					</div>
 				</div>
@@ -119,7 +120,7 @@
 						</div>
 						<div class="flex-1 text-right md:text-center">
 							<h5 class="font-bold uppercase text-gray-500 pr-2">Atendimentos</h5>
-							<h3 class="font-bold text-2xl"><%= @total_attended_count %><span class="text-blue-600"><i class="fas fa-caret-up"></i></span></h3>
+							<h3 class="font-bold text-2xl"><%= @total_attended %><span class="text-blue-600"><i class="fas fa-caret-up"></i></span></h3>
 						</div>
 					</div>
 				</div>
@@ -133,8 +134,8 @@
 							<div class="rounded p-3 bg-green-600"><i class="fas fa-project-diagram fa-2x fa-fw fa-inverse"></i></div>
 						</div>
 						<div class="flex-1 text-right md:text-center">
-							<h5 class="font-bold uppercase text-gray-500 pr-2">Aulas Ministradas</h5>
-							<h3 class="font-bold text-2xl"><%= @total_open_lessons_count  %><span class="text-blue-600"><i class="fas fa-caret-up"></i></span></h3>
+							<h5 class="font-bold uppercase text-gray-500 pr-2">Atividades Realizadas</h5>
+							<h3 class="font-bold text-2xl"><%= @total_open_lessons  %><span class="text-blue-600"><i class="fas fa-caret-up"></i></span></h3>
 						</div>
 					</div>
 				</div>
@@ -148,10 +149,10 @@
 				<!--Graph Card-->
 				<div class="bg-white border rounded shadow">
 					<div class="border-b p-3">
-						<h5 class="font-bold uppercase text-gray-600"><%= t(i18n_models(@enrollments)) %> x <%= t(i18n_models(@user_profiles)) %></h5>
+						<h5 class="font-bold uppercase text-gray-600">Matrículas x Usuários</h5>
 					</div>
 					<div class="p-5">
-						<canvas id="chartjs-7" data-users-size="<%= @user_profiles.size %>" data-enroll-size="<%= @enrollments.size %>"></canvas>
+						<canvas id="chartjs-7" data-users-size="<%= @user_profiles %>" data-enroll-size="<%= @active_enrollments %>"></canvas>
 					</div>
 				</div>
 			<!--/Graph Card-->

@@ -1,9 +1,10 @@
 class Backoffice::ClassroomsController < ApplicationController
 	layout 'admins'
 	before_action :set_classroom, only: [:show, :update]
+	before_action :set_projects_and_ceics, only: :index
 
 	def index
-		@classrooms = Classroom.find_classrooms(params)
+		@classrooms = Classroom.page(params[:page]).find_classrooms(params)
   end
 
 	def show
@@ -24,5 +25,10 @@ class Backoffice::ClassroomsController < ApplicationController
 	
 	def set_classroom
 		@classroom = Classroom.find(params[:id])
+	end
+
+	def set_projects_and_ceics
+		@projects = Project.all
+		@ceics = Ceic.all
 	end
 end

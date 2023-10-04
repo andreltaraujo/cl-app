@@ -8,6 +8,10 @@ module ApplicationHelper
 		object.model_name.human
 	end
 
+	def input_options
+		{ class:"mb-4 w-full rounded-md px-4 py-1.5 text-gray-900 shadow-md ring-2 ring-gray-300 sm:text-sm" }
+	end
+
 	def dynamic_render_helper(action, enrollment)
 		if action == 'show'
 			render 'show_enrollment_fields', f: enrollment

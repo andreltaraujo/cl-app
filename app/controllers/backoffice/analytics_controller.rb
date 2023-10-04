@@ -3,19 +3,19 @@ class Backoffice::AnalyticsController < ApplicationController
 	layout 'analytics'
 	
 	def index
-		@user_profiles = UserProfile.all
-		@enrollments = Enrollment.all
-		@projects = Project.all
-		@total_attended_count = total_attended_count(@projects)
-		@total_open_lessons_count = total_open_lessons_count(@projects)
+		users_reports
+		enrollments_reports
+		projects_reports
+		total_attended
+		total_open_lessons
 	end
 
-	def total_attended_count(projects)
-		Attendance.joins(lesson: { classroom: :project }).where(attended: true, classrooms: { projects: { id: projects.pluck(:id) } }).count
+	def total_attended
+		@total_attended = Attendance.where(attended: true).count
 	end
 
-	def total_open_lessons_count(projects)
-		Lesson.joins(classroom: :project).where(status: 'open', classrooms: { project_id: @projects.pluck(:id) }).count
+	def total_open_lessons
+		@total_open_lessons = Lesson.where(status: 'open').count
 	end
 
 	def attendances_in_month()
@@ -27,10 +27,15 @@ class Backoffice::AnalyticsController < ApplicationController
 	end
 
 	def users_reports
-		@user_profiles = UserProfile.all
+		@user_profiles = UserProfile.all.count
+		@active_user_profiles = UserProfile.active.count
+		@inactive_user_profiles = UserProfile.inactive.count
 	end
 
 	def enrollments_reports
+		@enrollments = Enrollment.all.count
+		@active_enrollments = Enrollment.active.count
+		@canceled_enrollments = Enrollment.canceled.count
 	end
 
 	def projects_reports

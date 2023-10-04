@@ -3,9 +3,8 @@ class Backoffice::LessonsController < ApplicationController
 	before_action :set_lesson, only: [:show, :edit, :update]
 
 	def index
-		@lessons = Lesson.find_month_lessons(params)
-		@classroom = Classroom.find(params[:classroom_id])
-		@attendance = Attendance.new
+		@classrooms = Classroom.all
+		@lessons = Lesson.page(params[:page]).search(params)
   end
 
 	def show

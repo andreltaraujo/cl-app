@@ -1,5 +1,5 @@
 
-<div class="px-4 md:mt-8 mb-16 text-gray-800">
+<div class="px-4 text-gray-800">
 	<div class="p-5">
 		<div class="bg-white border rounded shadow">
 			<div class="flex flex-wrap">
@@ -14,18 +14,16 @@
 					</div>
 				</div>
 				<div class="w-full border-b p-3 font-bold text-gray-600">
-					<%#= turbo_frame_tag "form" do %>
-						<%= form_tag backoffice_user_profiles_path, method: :get, data: { turbo_frame: "search-results", controller: "search", turbo_action: "advance", action: "input->search#submit" } do %>
-							<%= check_box_tag :active, "1", false, class:"p-2 rounded-sm" %>
-							<%= label_tag :active, "Ativos", class:"pr-4" %>
-							<%= check_box_tag :inactive, "0", false,  class:"p-2 rounded-sm" %>
-							<%= label_tag :inactive, "Inativos", class:"pr-4" %>
-							<%= text_field_tag :search, params[:search], class:"mt-2 sm:mt-0 rounded-lg focus:ring-indigo-500 focus:border-indigo-500 text-sm border-gray-300", placeholder: "Pesquise usuário por nome..." %>
-							<%= submit_tag 'Search', class:"text-cyan-600 border border-gray-300 hover:text-gray-500 py-1 px-4 rounded-lg shadow" do %>
-								<i class="fas fa-search fa-sm"></i><span class=""></span>
-								<% end %>
+					<%= form_tag backoffice_user_profiles_path, method: :get, data: { turbo_frame: "search-results", controller: "search", turbo_action: "advance", action: "input->search#submit" } do %>
+						<%= check_box_tag :active, "1", false, class:"p-2 rounded-sm" %>
+						<%= label_tag :active, "Ativos", class:"pr-4" %>
+						<%= check_box_tag :inactive, "0", false,  class:"p-2 rounded-sm" %>
+						<%= label_tag :inactive, "Inativos", class:"pr-4" %>
+						<%= text_field_tag :search, params[:search], class:"mt-2 sm:mt-0 rounded-lg focus:ring-indigo-500 focus:border-indigo-500 text-sm border-gray-300", placeholder: "Pesquise usuário por nome..." %>
+						<%= submit_tag 'Search', class:"text-cyan-600 border border-gray-300 hover:text-gray-500 py-1 px-4 rounded-lg shadow" do %>
+							<i class="fas fa-search fa-sm"></i><span class=""></span>
 						<% end %>
-					<%# end %></div>
+					<% end %>
 				</div>
 			</div>
 			<%= turbo_frame_tag "search-results" do %>

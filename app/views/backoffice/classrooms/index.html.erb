@@ -15,11 +15,11 @@
 				<%= form_tag backoffice_classrooms_path, method: :get, remote: true, id: "classrooms-form", class:"sm:flex text-sm" do %>
 					<div class="pl-4 my-2">
 						<%= label_tag "project_id", 'Projeto', class:"p-2" %>
-						<%= select_tag "project_id", options_for_select(Project.all.map { |p| [p.name, p.id] }, selected: @classrooms.first.project_id), { class:"block text-sm rounded-lg" }%>
+						<%= select_tag "project_id", options_from_collection_for_select(@projects, :id, :name, selected: @classrooms.first.project_id), class:"block text-sm rounded-lg" %>
 					</div>
 					<div class="pl-4 my-2">
 						<%= label_tag "ceic_id", 'CEIC', class:"p-2" %>
-						<%= select_tag "ceic_id", options_for_select(Ceic.all.map { |c| [c.slug, c.id] }, selected: @classrooms.first.ceic_id),  { class:"block text-sm rounded-lg"} %>
+						<%= select_tag "ceic_id", options_from_collection_for_select(@ceics, :id, :slug, selected: @classrooms.first.ceic_id), class:"block text-sm rounded-lg" %>
 					</div>
 					<div class="p-7">
 						<%= submit_tag "Filtrar Turmas", class:"block text-sm font-bold text-cyan-600 border border-cyan-600 rounded-lg shadow hover:text-gray-500 py-2 px-4" %>
@@ -55,7 +55,7 @@
 		</div>
 	</div>
 </div>
-<%#= paginate @classrooms %>
+<%= paginate @classrooms %>
 <footer class="bg-white border-t border-gray-400 shadow">
 	<div class="container max-w-md mx-auto flex py-8">
 		<div class="w-full mx-auto flex flex-wrap">

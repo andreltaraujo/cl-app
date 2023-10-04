@@ -1,70 +1,83 @@
-
-<div class="p-3">
-	<div class="overflow-x-auto">
-		<div class="table w-full text-gray-700">
-			<div class="table-header-group">
-				<div class="table-row font-bold text-blue-900">
-					<% %w[first_name].each do |attribute| %>
-						<div class="table-cell whitespace-nowrap"><%= @classroom.class.human_attribute_name(attribute) %></div>
-					<% end %>
-					<% @lessons.each do |lesson| %>
-						<div class="table-cell px-2 whitespace-nowrap"><%= lesson.id %>:<%= lesson.date.strftime('%d-%m-%Y') %></div>
-					<% end %>
+<div class="px-4 text-gray-800">
+	<div class="p-5">
+		<div class="bg-white border rounded shadow">
+			<div class="flex flex-wrap">
+				<div class="w-1/2 border-b p-3 text-lg font-bold uppercase text-gray-600">
+					<%= @lessons.first.model_name.human(count: 2) %>
 				</div>
-			</div>
-			<% if @classroom.enrollments.blank? %>
-				<div id="error_explanation" data-turbo-cache="false" class="flex p-2 bg-red-100 border border-red-400 text-sm font-medium text-red-700 py-2 rounded-lg justify-center mx-8 sm:mx-auto max-w-sm">
-					<svg viewBox="0 0 24 24" class="text-red-600 w-5 h-5 sm:w-5 sm:h-5 mr-3">
-						<path fill="currentColor" d="M11.983,0a12.206,12.206,0,0,0-8.51,3.653A11.8,11.8,0,0,0,0,12.207,11.779,11.779,0,0,0,11.8,24h.214A12.111,12.111,0,0,0,24,11.791h0A11.766,11.766,0,0,0,11.983,0ZM10.5,16.542a1.476,1.476,0,0,1,1.449-1.53h.027a1.527,1.527,0,0,1,1.523,1.47,1.475,1.475,0,0,1-1.449,1.53h-.027A1.529,1.529,0,0,1,10.5,16.542ZM11,12.5v-6a1,1,0,0,1,2,0v6a1,1,0,1,1-2,0Z"></path>
-					</svg>
-					"Não Há alunos matriculados nesta turma neste mês"
-				</div>
-			<% else %>
-				<% @classroom.enrollments.each do |enroll| %>
-					<div class="table-row-group">
-						<div class="table-cell py-2 pr-2 whitespace-nowrap"><%= enroll.user_profile.full_name %></div>
-						<% unless @lessons.blank? %>
-							<% if @lessons.first.attendances.any? %>
-								<% @lessons.first.attendances.first.user_profile.attendances.each do |attendance| %>
-									<div class="table-cell">
-										<%= form_with model: [:backoffice, attendance] do |f| %>
-											<div class="flex flex-col pl-2">
-												<div>
-													<%= attendance.id%>:<%= attendance.lesson_id%>:<%= f.radio_button :attended, true, class:"mr-1" %><%= f.label :attended, 'Presente', class:"text-sm", for:"attendance_attended_true" %>
-												</div>
-												<div>
-													<%= f.radio_button :attended, false, class:"mr-1" %><%= f.label :attended, 'Faltou', class:"text-sm", for:"attendance_attended_false" %>
-												</div>
-											</div>
-										<% end %>
-									</div>
-								<% end%>
-							<% else %>
-								<% @lessons.each do |lesson| %>
-									<div class="table-cell">
-										<%= turbo_frame_tag "add-attendance" do %>
-											<%= form_with model: [:backoffice, @attendance], data: { turbo_frame: "add-attendance", controller: "add-attendances", action: "click->add-attendances#submit"} do |f| %>
-												<%= f.hidden_field :lesson_id, value: lesson.id %><%= f.hidden_field :user_profile_id, value: enroll.user_profile.id%>
-												<div class="flex flex-col pl-2">
-													<div>
-														<%= f.radio_button :attended, true, class:"mr-1" %><%= f.label :attended, 'Presente', class:"text-sm", for:"attendance_attended_true" %>
-													</div>
-													<div>
-														<%= f.radio_button :attended, false, class:"mr-1" %><%= f.label :attended, 'Faltou', class:"text-sm", for:"attendance_attended_false" %>
-													</div>
-												</div>
-											<% end %>
-										<% end %>
-									</div>
-								<% end %>
-							<% end %>
-						<% else %>
-							<div id="error_explanation" data-turbo-cache="false" class="flex p-2 bg-red-100 border border-red-400 text-sm font-medium text-red-700 py-2 rounded-lg justify-center mx-8 sm:mx-auto max-w-sm"><svg viewBox="0 0 24 24" 		class="text-red-600 w-5 h-5 sm:w-5 sm:h-5 mr-3"><path fill="currentColor"d="M11.983,0a12.206,12.206,0,0,0-8.51,3.653A11.8,11.8,0,0,0,0,12.207,11.779,11.779,0,0,0,11.8,24h.214A12.111,12.111,0,0,0,24,11.791h0A11.766,11.766,0,0,0,11.983,0ZM10.5,16.542a1.476,1.476,0,0,1,1.449-1.53h.027a1.527,1.527,0,0,1,1.523,1.47,1.475,1.475,0,0,1-1.449,1.53h-.027A1.529,1.529,0,0,1,10.5,16.542ZM11,12.5v-6a1,1,0,0,1,2,0v6a1,1,0,1,1-2,0Z"></path></svg>"Não Há aulas ministradas registradas neste mês"
-							</div>
+				<div class="w-1/2 border-b p-4 text-gray-600">
+					<div class="flex float-right">
+						<%= link_to :back, class:"text-sm text-cyan-600 hover:text-gray-500" do %>
+							<i class="fas fa-arrow-left fa-fw mr-1"></i><span class=""><%= t('devise.shared.links.back') %></span>
 						<% end %>
 					</div>
+				</div>
+				<%= form_tag backoffice_lessons_path, method: :get, id: "classrooms-form", class:"flex text-sm" do %>
+					<div class="pl-4 my-2">
+						<%= label_tag "classroom_id", 'Turma', class:"p-2" %>
+						<%= select_tag "classroom_id", options_for_select(@classrooms.pluck(:id), selected: @lessons.first.classroom_id), class:"block text-sm rounded-lg" %>
+					</div>
+					<div class="p-7">
+						<%= submit_tag "Filtrar Aulas", class:"block text-sm font-bold text-cyan-600 border border-cyan-600 rounded-lg shadow hover:text-gray-500 py-2 px-4" %>
+					</div >
 				<% end %>
-			<% end %>
+			</div>
+			<div class="p-5">
+				<div class="overflow-x-auto">
+					<div class="table w-full text-gray-700">
+						<div class="table-header-group">
+							<div class="table-row font-bold text-blue-900">
+								<% %w[id date classroom_id status ].each do |attribute| %>
+									<% if @lessons.first.attributes.key?(attribute) %>
+										<div class="table-cell px-4 whitespace-nowrap"><%= i18n_attributes(@lessons, attribute) %></div>
+									<% end %>
+								<% end %>
+							</div>
+						</div>
+						<div class="table-row-group">
+							<% @lessons.each do |lesson| %>
+								<a href="<%= backoffice_lesson_path(lesson) %>" class="table-row hover:bg-gray-100">
+									<div class="table-cell px-4 py-2"><%= lesson.id %></div>
+									<div class="table-cell px-4 py-2 whitespace-nowrap"><%= l(lesson.date.to_date) %></div>
+									<div class="table-cell px-4 py-2 whitespace-nowrap"><%= lesson.classroom_id %></div>
+									<div class="table-cell px-4 py-2"><%= lesson.status %></div>
+								</a>
+							<% end %>
+						</div>
+					</div>
+				</div>
+			</div>
 		</div>
 	</div>
 </div>
+<%= paginate @lessons %>
+<footer class="bg-white border-t border-gray-400 shadow">
+	<div class="container max-w-md mx-auto flex py-8">
+		<div class="w-full mx-auto flex flex-wrap">
+			<div class="flex w-full md:w-1/2 ">
+				<div class="px-8">
+					<h3 class="font-bold text-gray-900">About</h3>
+					<p class="py-4 text-gray-600 text-sm">
+						Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas vel mi ut felis tempus commodo nec id erat. Suspendisse consectetur dapibus velit ut lacinia.
+					</p>
+				</div>
+			</div>
+			<div class="flex w-full md:w-1/2">
+				<div class="px-8">
+					<h3 class="font-bold text-gray-900">Social</h3>
+					<ul class="list-reset items-center text-sm pt-3">
+						<li>
+							<a class="inline-block text-gray-600 no-underline hover:text-gray-900 hover:underline py-1" href="#">Add social link</a>
+						</li>
+						<li>
+							<a class="inline-block text-gray-600 no-underline hover:text-gray-900 hover:underline py-1" href="#">Add social link</a>
+						</li>
+						<li>
+							<a class="inline-block text-gray-600 no-underline hover:text-gray-900 hover:underline py-1" href="#">Add social link</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+</footer>

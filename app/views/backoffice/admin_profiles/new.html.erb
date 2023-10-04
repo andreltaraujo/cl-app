@@ -4,20 +4,20 @@
 		<%= render "backoffice/admin_profiles/error_messages", resource: @admin_profiles %>
     <%= form_with model: [:backoffice, @admin_profile], html: { class:"bg-gray-50 shadow-lg rounded-md p-8 my-4" } do |f| %>
 			<%= f.label :name, class:"p-4 text-sm font-medium text-gray-900" %>
-        <%= f.text_field :name, autofocus: true, class:"mb-4 w-full rounded-md px-4 py-1.5 text-gray-900 shadow-md ring-2 ring-gray-300 sm:text-sm" %>
+        <%= f.text_field :name, autofocus: true, **input_options %>
         <%= f.label :email, class:"p-4 text-sm font-medium text-gray-900" %><br />
-        <%= f.email_field :email, autocomplete: "email", class:"mb-4 w-full rounded-md px-4 py-1.5 text-gray-900 shadow-md ring-2 ring-gray-300 sm:text-sm" %>
+        <%= f.email_field :email, autocomplete: "email", **input_options %>
 			
       <div class="field">
         <%= f.label :password, class:"p-4 text-sm font-medium text-gray-900" %>
         <% if @minimum_password_length %>
         <em>(<%= @minimum_password_length %> characters minimum)</em>
         <% end %><br />
-        <%= f.password_field :password, autocomplete: "new-password", class:"mb-4 w-full rounded-md px-4 py-1.5 text-gray-900 shadow-md ring-2 ring-gray-300 sm:text-sm" %>
+        <%= f.password_field :password, autocomplete: "new-password", **input_options %>
       </div>
       <div class="field">
         <%= f.label :password_confirmation, class:"p-4 text-sm font-medium text-gray-900" %><br />
-        <%= f.password_field :password_confirmation, autocomplete: "new-password", class:"mb-4 w-full rounded-md px-4 py-1.5 text-gray-900 shadow-md ring-2 ring-gray-300 sm:text-sm" %>
+        <%= f.password_field :password_confirmation, autocomplete: "new-password", **input_options %>
       </div>
 
       <div class="actions">
