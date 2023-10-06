@@ -1,14 +1,3 @@
-<style>
-.bg-lime-500 {
-	background-color: rgb(132 204 22);
-}
-.bg-lime-200:hover {
-	background-color: rgb(217 249 157);
-}
-.bg-cyan-600 {
-	background-color: rgb(8 145 178);
-}
-</style>
 <div class="text-2xl text-center text-gray-900 font-bold"><%= t('devise.shared.links.edit') %> <%= @enrollment.model_name.human %></div>
 <%= form_with model: [:backoffice, @enrollment], html: { class:"max-w-5xl mx-auto bg-gray-50 shadow-lg rounded-md p-8 my-4" } do |f| %>
 	<div class="grid grid-cols-1 sm:grid-cols-3 gap-4 whitespace-nowrap">
@@ -30,7 +19,7 @@
 		</div>
 		<div>
 			<%= f.label :ceic_id, class:"p-2 block text-sm font-medium text-gray-700" %>
-			<%= f.collection_select :ceic_id, Ceic.all, :id, :slug, { selected: @enrollment.ceic}, class:"ceic-field w-1/2 rounded-md px-4 py-1.5 text-gray-900 shadow-md ring-2 ring-gray-300" %>
+			<%= f.collection_select :ceic_id, Ceic.all, :id, :slug, { selected: @enrollment.ceic}, class:"w-1/2 rounded-md px-4 py-1.5 text-gray-900 shadow-md ring-2 ring-gray-300" %>
 		</div>
 		<div>
 			<%= f.fields_for :classroom do |room| %>
@@ -39,6 +28,6 @@
 			<% end %>
 		</div>
 	</div>
-	<%= f.submit t('devise.shared.links.update'), class:"mt-4 bg-lime-500 hover:bg-lime-200 border border-1 rounded-lg py-2 px-4 text-sm text-white uppercase font-bold" %>
-	<%= link_to t('devise.shared.links.back'), :back, class:"mt-4 bg-cyan-600	hover:bg-lime-200 border border-1 rounded-lg py-2 px-4 text-sm text-white uppercase font-bold" %>
+	<%= f.submit t('devise.shared.links.update'), class:"mt-4 bg-lime-500 hover:bg-lime-200 hover:text-gray-700 border border-1 rounded-lg py-2 px-4 text-sm text-white uppercase font-bold" %>
+	<%= link_to t('devise.shared.links.back'), :back, class:"mt-4 bg-cyan-600	hover:bg-cyan-200 hover:text-gray-700 border border-1 rounded-lg py-2 px-4 text-sm text-white uppercase font-bold" %>
 <% end %>

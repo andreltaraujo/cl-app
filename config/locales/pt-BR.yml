@@ -48,7 +48,6 @@ pt-BR:
       attended:
         "true" : Presente
         "false" : Faltou
-      add_field: Adicionar %{resource}
       user:
         confirmation_sent_at: Confirmação enviada em
         confirmation_token: Token de confirmação
@@ -171,3 +170,6 @@ pt-BR:
         date: Data
       attendance:
         attended: "%{status}"
+  links:
+    new_lessons: Cadastrar Aulas
+    add_field: Adicionar %{resource}

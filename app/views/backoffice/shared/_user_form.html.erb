@@ -33,7 +33,7 @@
 					<% end %>
 					<% if action_name != 'show' %>
 						<div class="font-bold">
-							<%= link_to_add_association t('activerecord.attributes.add_field', resource: user.phone_numbers.model_name.human), f, :phone_numbers, class:"mt-4 p-4 text-sm text-gray-900" %>
+							<%= link_to_add_association t('links.add_field', resource: user.phone_numbers.model_name.human), f, :phone_numbers, class:"mt-4 p-4 text-sm text-gray-900" %>
 						</div>
 					<% end %>
 				</div>

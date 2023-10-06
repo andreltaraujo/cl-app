@@ -18,10 +18,10 @@
 					<div class="table w-full text-gray-700">
 						<div class="table-header-group">
 							<div class="table-row font-bold text-blue-900">
-								<% %w[id date classroom_id status ].each do |attribute| %>
-									<% if @lesson.attributes.key?(attribute) %>
+								<% %w[id date classroom_id project ceic schedule status ].each do |attribute| %>
+									<%# if @lesson.attributes.key?(attribute) %>
 										<div class="table-cell px-4 whitespace-nowrap"><%= @lesson.class.human_attribute_name(attribute) %></div>
-									<% end %>
+									<%# end %>
 								<% end %>
 							</div>
 						</div>
@@ -29,15 +29,23 @@
 							<div class="table-cell px-4 py-2"><%= @lesson.id %></div>
 							<div class="table-cell px-4 py-2 whitespace-nowrap"><%= l(@lesson.date.to_date) %></div>
 							<div class="table-cell px-4 py-2 whitespace-nowrap"><%= @lesson.classroom_id %></div>
+							<div class="table-cell px-4 py-2 whitespace-nowrap"><%= @lesson.classroom.project.slug %></div>
+							<div class="table-cell px-4 py-2 whitespace-nowrap"><%= @lesson.classroom.ceic.slug %></div>
+							<div class="table-cell px-4 py-2 whitespace-nowrap"><%= @lesson.classroom.schedule.strftime('%H:%M') %></div>
 							<div class="table-cell px-4 py-2"><%= @lesson.status %></div>
 						</div>
 						<div class="table-row-group">
+							<div class="table-row font-bold text-blue-900">
+								<% %w[full_name status ].each do |attribute| %>
+									<div class="table-cell px-4 whitespace-nowrap"><%= @lesson.class.human_attribute_name(attribute) %></div>
+								<% end %>
+							</div>
 							<% @lesson.attendances.each do |attendance| %>
 								<div class="table-row">
-									<div class="table-cell pr-2 py-2 whitespace-nowrap">
+									<div class="table-cell px-4 py-2 whitespace-nowrap">
 										<%= attendance.user_profile.full_name %>
 									</div>
-									<div class="table-cell">
+									<div class="table-cell px-4 py-2">
 										<%= attendance.attended %>
 									</div>
 								</div>

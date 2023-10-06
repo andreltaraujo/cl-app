@@ -14,7 +14,7 @@ namespace :dev do
 			%x(rails dev:add_programs)
 			%x(rails dev:add_projects)
 			%x(rails dev:add_classrooms)
-			%x(rails dev:add_lessons)
+			#%x(rails dev:add_lessons)
 			%x(rails dev:add_others_users)
 			%x(rails dev:add_address)
 			%x(rails dev:add_phone_numbers)
@@ -193,23 +193,23 @@ namespace :dev do
 		weekdays3 = { wed_fri: [3, 5] }
 
 		matching_dates = {}
-		weekdays1.each do |weekdays_name, weekdays1|
+		weekdays3.each do |weekdays_name, weekdays3|
 			start_date = Date.new(year, month, 1)
 			end_date = Date.new(year, month, -1)
 
-			matching_dates_for_weekdays1 = []
+			matching_dates_for_weekdays3 = []
 
 			current_date = start_date
 			while current_date <= end_date
-				if weekdays1.include?(current_date.wday)
-					matching_dates_for_weekdays1 << current_date
+				if weekdays3.include?(current_date.wday)
+					matching_dates_for_weekdays3 << current_date
 				end
 					current_date += 1
-					matching_dates = matching_dates_for_weekdays1
+					matching_dates = matching_dates_for_weekdays3
 			end
 		end
 		matching_dates.each do |date|
-			projects = Project.find(projects1)
+			projects = Project.find(projects3)
 			projects.each do |project|
 				classroom_ids = project.classrooms.ids
 				classrooms = Classroom.find(classroom_ids)
@@ -253,17 +253,20 @@ namespace :dev do
 				school: School.all.sample,
 				user: user
 			)
-			rand(1..3).times do |xc|
-				classroom_ids = Classroom.pluck(:id)
-				classroom_id = classroom_ids.sample
-				cr = Classroom.find(classroom_id)
-				Enrollment.create!(
-					canceled: false,
-					user_profile: profile,
-					project_id: cr.project_id,
-					ceic_id: cr.ceic_id,
-					classroom_id: cr.id
-				)
+			rand(1..3).times do |enroll|
+				project_id = Project.pluck(:id).shuffle[1]
+				proj = Project.find(project_id)
+				cr_id = proj.classroom_ids.sample
+				cr = Classroom.find(cr_id)
+				if !Enrollment.exists?(project_id: proj.id, user_profile_id: profile.id)
+					Enrollment.create!(
+						canceled: false,
+						user_profile: profile,
+						project_id: cr.project_id,
+						ceic_id: cr.ceic_id,
+						classroom_id: cr.id
+					)
+				end
 			end
 		end
 	end

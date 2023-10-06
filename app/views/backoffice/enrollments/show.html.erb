@@ -31,19 +31,17 @@
 		</div>
 	</div>
 	<div class="mt-4">
-		<%= link_to t('devise.shared.links.edit'), edit_backoffice_enrollment_path(@enrollment), class:"bg-lime-500 hover:bg-lime-200 border border-1 rounded-lg py-2 px-4 text-sm text-white uppercase font-bold" %>
-	<%= link_to t('devise.shared.links.back'), :back, class:"mt-4 bg-cyan-600	hover:bg-lime-200 border border-1 rounded-lg py-2 px-4 text-sm text-white uppercase font-bold" %>
-
+		<%= link_to t('devise.shared.links.edit'), edit_backoffice_enrollment_path(@enrollment), class:"bg-lime-500 hover:bg-lime-200 hover:text-gray-700 border border-1 rounded-lg py-2 px-4 text-sm text-white uppercase font-bold" %>
+		<%= link_to t('devise.shared.links.back'), :back, class:"mt-4 bg-cyan-600	hover:bg-cyan-200 hover:text-gray-700 border border-1 rounded-lg py-2 px-4 text-sm text-white uppercase font-bold" %>
 	</div>
 <% end %>
 <script>
 	document.addEventListener('DOMContentLoaded', function() {
-  const form = document.getElementById('enroll-form');
-  const inputFields = form.querySelectorAll('input');
-  
-  inputFields.forEach(function(inputField) {
-    inputField.readOnly = true;
-  });
-});
+  	const form = document.getElementById('enroll-form');
+  	const inputFields = form.querySelectorAll('input');
 
+  	inputFields.forEach(function(inputField) {
+    	inputField.readOnly = true;
+  	});
+	});
 </script>
