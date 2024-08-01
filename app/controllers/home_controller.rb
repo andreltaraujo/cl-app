@@ -1,5 +1,6 @@
 class HomeController < ApplicationController
-  def index
+
+	def index
 		@user = User
 		@admin = Admin
 		@educ = Educ

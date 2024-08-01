@@ -1,0 +1,26 @@
+ 
+				<div class="p-5">
+					<div class="overflow-x-auto">
+						<div class="table w-full text-gray-700">
+							<div class="table-header-group">
+								<div class="table-row font-bold text-left text-blue-900">
+									<% %w[id first_name active created_at].each do |attribute| %>
+										<% if @users.first.attributes.key?(attribute) %>
+											<div class="table-cell px-4"><%= i18n_attributes(@users, attribute) %></div>
+										<% end %>
+									<% end %>
+								</div>
+							</div>
+							<div class="table-row-group">
+								<% @users.each do |user| %>
+									<%= link_to backoffice_user_profile_path(user), class:"table-row hover:bg-gray-100" do %><span>
+										<div class="table-cell px-4 py-2"><%= user.id %></div></span>
+										<div class="table-cell px-4 py-2 whitespace-nowrap"><%= user.full_name%></div>
+										<div class="table-cell px-4 py-2"><%= t('activerecord.attributes.user.activated', status: user.active ? t('activerecord.attributes.boolean.true') : t('activerecord.attributes.boolean.false'))%></div>
+										<div class="table-cell px-4 py-2"><%= l(user.created_at.to_date) %></div>
+									<% end %>
+								<% end %>
+							</div>
+						</div>
+					</div>
+				</div>

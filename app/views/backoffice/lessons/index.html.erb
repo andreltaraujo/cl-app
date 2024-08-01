@@ -1,0 +1,86 @@
+<div class="px-4 text-gray-800">
+	<div class="p-5">
+		<div class="bg-white border rounded shadow">
+			<div class="flex flex-wrap">
+				<div class="w-1/2 border-b p-3 text-lg font-bold uppercase text-gray-600">
+					<%= @lessons.first.model_name.human(count: 2) %>
+				</div>
+				<div class="w-1/2 border-b p-4 text-gray-600">
+					<div class="flex float-right">
+						<%= link_to new_backoffice_lesson_path, class:"text-sm text-cyan-600 hover:text-gray-500" do %>
+							<i class="fas fa-calendar-plus fa-fw mr-1"></i><span class=""><%= t('links.new_lessons') %></span>
+						<% end %>
+					</div>
+				</div>
+				<%= form_tag backoffice_lessons_path, method: :get, id: "classrooms-form", class:"flex text-sm" do %>
+					<div class="pl-4 my-2">
+						<%= label_tag "classroom_id", 'Turma', class:"p-2" %>
+						<%= select_tag "classroom_id", options_for_select(@classrooms.pluck(:id), selected: @lessons.first.classroom_id), class:"block text-sm rounded-lg" %>
+					</div>
+					<div class="p-7">
+						<%= submit_tag "Filtrar Aulas", class:"block text-sm font-bold text-cyan-600 border border-cyan-600 rounded-lg shadow hover:text-gray-500 py-2 px-4" %>
+					</div >
+				<% end %>
+			</div>
+			<div class="p-5">
+				<div class="overflow-x-auto">
+					<div class="table w-full text-gray-700">
+						<div class="table-header-group">
+							<div class="table-row font-bold text-blue-900">
+								<% %w[id date classroom_id project ceic schedule status ].each do |attribute| %>
+									<%# if @lessons.first.attributes.key?(attribute) %>
+										<div class="table-cell px-4 whitespace-nowrap"><%= i18n_attributes(@lessons, attribute) %></div>
+									<%# end %>
+								<% end %>
+							</div>
+						</div>
+						<div class="table-row-group">
+							<% @lessons.each do |lesson| %>
+								<a href="<%= backoffice_lesson_path(lesson) %>" class="table-row hover:bg-gray-100">
+									<div class="table-cell px-4 py-2"><%= lesson.id %></div>
+									<div class="table-cell px-4 py-2 whitespace-nowrap"><%= l(lesson.date.to_date) %></div>
+									<div class="table-cell px-4 py-2 whitespace-nowrap"><%= lesson.classroom_id %></div>
+									<div class="table-cell px-4 py-2 whitespace-nowrap"><%= lesson.classroom.project.slug %></div>
+									<div class="table-cell px-4 py-2 whitespace-nowrap"><%= lesson.classroom.ceic.slug %></div>
+									<div class="table-cell px-4 py-2 whitespace-nowrap"><%= lesson.classroom.schedule.strftime('%H:%M') %></div>
+									<div class="table-cell px-4 py-2"><%= lesson.status %></div>
+								</a>
+							<% end %>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<%= paginate @lessons %>
+<footer class="bg-white border-t border-gray-400 shadow">
+	<div class="container max-w-md mx-auto flex py-8">
+		<div class="w-full mx-auto flex flex-wrap">
+			<div class="flex w-full md:w-1/2 ">
+				<div class="px-8">
+					<h3 class="font-bold text-gray-900">About</h3>
+					<p class="py-4 text-gray-600 text-sm">
+						Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas vel mi ut felis tempus commodo nec id erat. Suspendisse consectetur dapibus velit ut lacinia.
+					</p>
+				</div>
+			</div>
+			<div class="flex w-full md:w-1/2">
+				<div class="px-8">
+					<h3 class="font-bold text-gray-900">Social</h3>
+					<ul class="list-reset items-center text-sm pt-3">
+						<li>
+							<a class="inline-block text-gray-600 no-underline hover:text-gray-900 hover:underline py-1" href="#">Add social link</a>
+						</li>
+						<li>
+							<a class="inline-block text-gray-600 no-underline hover:text-gray-900 hover:underline py-1" href="#">Add social link</a>
+						</li>
+						<li>
+							<a class="inline-block text-gray-600 no-underline hover:text-gray-900 hover:underline py-1" href="#">Add social link</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+</footer>

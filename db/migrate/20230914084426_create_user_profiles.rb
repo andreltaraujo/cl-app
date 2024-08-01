@@ -7,7 +7,7 @@ class CreateUserProfiles < ActiveRecord::Migration[7.0]
       t.string :genre
       t.string :father_name
       t.string :mother_name
-      t.boolean :active
+      t.boolean :active, default: true
       t.belongs_to :school, null: false, foreign_key: true
       t.belongs_to :user, null: false, foreign_key: true
 

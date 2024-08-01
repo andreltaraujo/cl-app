@@ -1,0 +1,23 @@
+<div class="text-2xl text-center text-gray-900 font-bold"><%= t('links.new_lessons') %></div>
+<%= form_with model: [:backoffice, @lesson], html: { class:"max-w-5xl mx-auto bg-gray-50 shadow-lg rounded-md p-8 my-4" } do |f| %>
+	<div class="grid grid-cols-1 sm:grid-cols-3 gap-4 whitespace-nowrap">
+		<div>
+			<%= label_tag :project_id, "Projeto", class:"p-2 block text-sm font-medium text-gray-700" %>
+			<%= select_tag :project_id, options_from_collection_for_select(@projects, :id, :name), class:"w-full rounded-md px-4 py-1.5 text-gray-900 shadow-md ring-2 ring-gray-300" %>
+		</div>
+		<div>
+			<%= label_tag :month, "Mês", class:"p-2 block text-sm font-medium text-gray-700"%>
+			<%= select_tag :month, options_for_select(@months_available), { class:"text-sm rounded-lg"} %>
+		</div>
+		<div class="grid grid-cols-3 sm:gap-12 lg:gap-4 whitespace-nowrap">
+			<%= label_tag 'weekdays', 'Select Weekdays', class: 'block text-sm font-medium text-gray-900' %>
+			<div></div><div></div>
+			<%= collection_check_boxes(:weekdays, :weekdays ,weekdays_collection, :last, :first) do |b| %>
+      	<div>
+					<%= b.check_box %><span class="ml-1"> <%= b.text %></span>
+				</div>
+    	<% end %>
+		</div>
+	</div>
+	<%= f.submit t('links.new_lessons'), class:"mt-4 bg-lime-500 hover:bg-lime-200 hover:text-gray-700 border border-1 rounded-lg py-2 px-4 text-sm text-white uppercase font-bold" %>
+<% end %>

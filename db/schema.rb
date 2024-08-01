@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_09_14_084426) do
+ActiveRecord::Schema[7.0].define(version: 2023_09_19_235424) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -21,16 +21,15 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_14_084426) do
     t.string "city"
     t.string "state"
     t.string "zipcode"
-    t.bigint "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["user_id"], name: "index_addresses_on_user_id"
+    t.integer "user_profile_id"
   end
 
   create_table "admin_profiles", force: :cascade do |t|
     t.string "name"
     t.string "role"
-    t.boolean "active"
+    t.boolean "active", default: true
     t.bigint "admin_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -51,12 +50,11 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_14_084426) do
 
   create_table "attendances", force: :cascade do |t|
     t.boolean "attended"
-    t.bigint "user_id", null: false
     t.bigint "lesson_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "user_profile_id"
     t.index ["lesson_id"], name: "index_attendances_on_lesson_id"
-    t.index ["user_id"], name: "index_attendances_on_user_id"
   end
 
   create_table "ceics", force: :cascade do |t|
@@ -68,7 +66,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_14_084426) do
 
   create_table "classrooms", force: :cascade do |t|
     t.time "schedule"
-    t.boolean "active"
+    t.boolean "active", default: true
     t.bigint "project_id", null: false
     t.bigint "ceic_id", null: false
     t.datetime "created_at", null: false
@@ -102,22 +100,21 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_14_084426) do
   end
 
   create_table "enrollments", force: :cascade do |t|
-    t.boolean "canceled"
-    t.bigint "user_id", null: false
+    t.boolean "canceled", default: false
     t.bigint "project_id", null: false
     t.bigint "ceic_id", null: false
     t.bigint "classroom_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "user_profile_id"
     t.index ["ceic_id"], name: "index_enrollments_on_ceic_id"
     t.index ["classroom_id"], name: "index_enrollments_on_classroom_id"
     t.index ["project_id"], name: "index_enrollments_on_project_id"
-    t.index ["user_id"], name: "index_enrollments_on_user_id"
   end
 
   create_table "lessons", force: :cascade do |t|
     t.datetime "date"
-    t.string "status"
+    t.string "status", default: "open"
     t.bigint "classroom_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -127,10 +124,9 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_14_084426) do
   create_table "phone_numbers", force: :cascade do |t|
     t.string "number"
     t.string "description"
-    t.bigint "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["user_id"], name: "index_phone_numbers_on_user_id"
+    t.integer "user_profile_id"
   end
 
   create_table "programs", force: :cascade do |t|
@@ -162,7 +158,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_14_084426) do
     t.string "genre"
     t.string "father_name"
     t.string "mother_name"
-    t.boolean "active"
+    t.boolean "active", default: true
     t.bigint "school_id", null: false
     t.bigint "user_id", null: false
     t.datetime "created_at", null: false
@@ -183,10 +179,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_14_084426) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
-  add_foreign_key "addresses", "users"
   add_foreign_key "admin_profiles", "admins"
   add_foreign_key "attendances", "lessons"
-  add_foreign_key "attendances", "users"
   add_foreign_key "classrooms", "ceics"
   add_foreign_key "classrooms", "projects"
   add_foreign_key "educ_profiles", "ceics"
@@ -195,9 +189,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_14_084426) do
   add_foreign_key "enrollments", "ceics"
   add_foreign_key "enrollments", "classrooms"
   add_foreign_key "enrollments", "projects"
-  add_foreign_key "enrollments", "users"
   add_foreign_key "lessons", "classrooms"
-  add_foreign_key "phone_numbers", "users"
   add_foreign_key "projects", "programs"
   add_foreign_key "user_profiles", "schools"
   add_foreign_key "user_profiles", "users"

@@ -1,0 +1,40 @@
+<div class="flex flex-col justify-center m-8">
+  <div class="sm:mx-auto sm:w-full sm:max-w-md">
+    <div class="text-2xl text-center text-gray-900 font-bold">Cadastrar <%= @educ_profile.model_name.human %></div>
+		<%= render "backoffice/educ_profiles/error_messages", resource: @educ_profile %>
+    <%= form_with model: [:backoffice, @educ_profile], html: { class:"bg-gray-50 shadow-lg rounded-md p-8 my-4" } do |f| %>
+			<%= f.label :name, class:"p-4 text-sm font-medium text-gray-900" %>
+        <%= f.text_field :name, autofocus: true, **input_options %>
+        <%= f. fields_for :educ do |educ_fields| %>
+				<%= educ_fields.label :email, class:"p-4 text-sm font-medium text-gray-900" %><br />
+        <%= educ_fields.email_field :email, autocomplete: "email", **input_options %>
+			<% end %>
+      <div class="field">
+        <%= f.label :password, class:"p-4 text-sm font-medium text-gray-900" %>
+        <% if @minimum_password_length %>
+        <em>(<%= @minimum_password_length %> characters minimum)</em>
+        <% end %><br />
+        <%= f.password_field :password, autocomplete: "new-password", **input_options %>
+      </div>
+			<div class="field">
+        <%= f.label :password_confirmation, class:"p-4 text-sm font-medium text-gray-900" %><br />
+        <%= f.password_field :password_confirmation, autocomplete: "new-password", **input_options %>
+      </div>
+      <div class="field">
+        <%= f.label :project_id, class:"p-4 text-sm font-medium text-gray-900" %><br />
+        <%= f.collection_select :project_id, Project.all, :id, :name, {}, input_options %>
+      </div>
+			<div class="field">
+        <%= f.label :ceic_id, class:"p-4 text-sm font-medium text-gray-900" %><br />
+        <%= f.collection_select :ceic_id, Ceic.all, :id, :slug, {}, input_options %>
+      </div>
+
+      <div class="actions">
+        <%= f.submit "Enviar", class:"mt-4 px-4 justify-center rounded-md bg-sky-600 py-2 text-sm font-semibold text-white hover:bg-sky-700" %>
+      </div>
+    <% end %>
+    <div class="flex flex-wrap justify-center mt-8 text-sm font-medium text-gray-900">
+			<%= link_to t('devise.shared.links.back'), :back %>
+		</div>
+  </div>
+</div>

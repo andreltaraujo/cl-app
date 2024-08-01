@@ -4,18 +4,18 @@
 			<%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { class:"bg-gray-50 shadow-lg rounded-md p-8 my-4" }) do |f| %>
 				<%= render "shared/error_messages", resource: resource %>
 				<%#= f.label :name, class:"p-4 text-sm font-medium text-gray-900" %>
-				<%#= f.text_field :name, class:"mb-4 w-full rounded-md px-4 py-1.5 text-gray-900 shadow-md ring-2 ring-gray-300 sm:text-sm" %>
+				<%#= f.text_field :name, **input_options %>
 				<%= f.label :email, class:"p-4 text-sm font-medium text-gray-900" %><br />
-				<%= f.email_field :email, autofocus: true, autocomplete: "email", class:"mb-4 w-full rounded-md px-4 py-1.5 text-gray-900 shadow-md ring-2 ring-gray-300 sm:text-sm" %>
+				<%= f.email_field :email, autofocus: true, autocomplete: "email", **input_options %>
 
 				<%= f.label :password, class:"p-4 text-sm font-medium text-gray-900" %>
 				<% if @minimum_password_length %>
 				<em class="text-sm"><%= @minimum_password_length %> <%= t('devise.passwords.characters_minimum') %></em>
 				<% end %><br />
-				<%= f.password_field :password, autocomplete: "new-password", class:"mb-4 w-full rounded-md px-4 py-1.5 text-gray-900 shadow-md ring-2 ring-gray-300 sm:text-sm" %>
+				<%= f.password_field :password, autocomplete: "new-password", **input_options %>
 
 				<%= f.label :password_confirmation, class:"p-4 text-sm font-medium text-gray-900" %><br />
-				<%= f.password_field :password_confirmation, autocomplete: "new-password", class:"mb-4 w-full rounded-md px-4 py-1.5 text-gray-900 shadow-md ring-2 ring-gray-300 sm:text-sm" %>
+				<%= f.password_field :password_confirmation, autocomplete: "new-password", **input_options %>
 
 				<div class="actions">
 					<%= f.submit t("devise.shared.links.signing_up"), class:"mt-4 w-full justify-center rounded-md bg-sky-600 py-2 text-sm font-semibold text-white hover:bg-sky-700" %>

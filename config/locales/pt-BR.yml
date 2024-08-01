@@ -1,10 +1,13 @@
 pt-BR:
   activerecord:
     models:
-      admin:
+      admin_profile:
         one: Administrador
         other: Administradores
       user:
+        one: Usuário
+        other: Usuários
+      user_profile:
         one: Usuário
         other: Usuários
       address:
@@ -26,7 +29,7 @@ pt-BR:
       project: 
         one: Projeto
         other: Projetos
-      educ:
+      educ_profile:
         one: Educador
         other: Educadores
       classroom:
@@ -42,7 +45,9 @@ pt-BR:
       boolean:
         "true": Sim
         "false": Não
-      add_field: Adicionar %{resource}
+      attended:
+        "true" : Presente
+        "false" : Faltou
       user:
         confirmation_sent_at: Confirmação enviada em
         confirmation_token: Token de confirmação
@@ -51,23 +56,6 @@ pt-BR:
         current_password: Senha atual
         current_sign_in_at: Atualmente logado em
         current_sign_in_ip: IP do acesso atual
-        first_name: Nome
-        last_name: Sobrenome
-        full_name: Nome completo
-        email: E-mail
-        birthdate: Data Nascimento
-        genre: Gênero
-        male: Masculino
-        female: Feminino
-        father_name: Nome do Pai
-        mother_name: Nome da Mãe
-        phone_number: Telefone
-        address: Endereço
-        project: Projetos
-        school: Escola
-        ceic: CEIC
-        active: Ativo
-        activated: "%{status}"
         encrypted_password: Senha criptografada
         failed_attempts: Tentativas sem sucesso
         last_sign_in_at: Último acesso em
@@ -83,6 +71,24 @@ pt-BR:
         unconfirmed_email: E-mail não confirmado
         unlock_token: Token de desbloqueio
         updated_at: Atualizado em
+      user_profile:
+        first_name: Nome
+        last_name: Sobrenome
+        full_name: Nome completo
+        email: E-mail
+        birthdate: Data Nascimento
+        gender: Gênero
+        gender_male: Masculino
+        gender_female: Feminino
+        father_name: Nome do Pai
+        mother_name: Nome da Mãe
+        phone_number: Telefone
+        address: Endereço
+        project: Projetos
+        school_id: Escola
+        ceic: CEIC
+        active: Ativo
+        activated: "%{status}"
       admin:
         confirmation_sent_at: Confirmação enviada em
         confirmation_token: Token de confirmação
@@ -112,7 +118,7 @@ pt-BR:
       enrollment:
         school: Escola
         id: Matrícula Nº
-        user_id: Usuário
+        user_profile_id: Usuário
         full_name: Nome completo
         created_at: Criado em
         updated_at: Atualizado em
@@ -160,3 +166,10 @@ pt-BR:
         schedule: Horário
         active: Ativa
         project_id: Projeto
+      lesson:
+        date: Data
+      attendance:
+        attended: "%{status}"
+  links:
+    new_lessons: Cadastrar Aulas
+    add_field: Adicionar %{resource}
